@@ -7,27 +7,265 @@
 <h1>Elera Ventas-diamantes freefire</h1>
 <p>Plataforma de ventas de diamantes Free Fire y recargas digitales.</p><h2>💎 Recargas de Diamantes Free Fire 💎</h2>
 
-<p>Precios en soles (S/)</p>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elera Ventas | Tienda Oficial</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
 
-<p>
-💎 100 diamantes = S/ 2.90<br>
-💎 341 diamantes = S/ 8.50<br>
-💎 572 diamantes = S/ 12.50<br>
-💎 1166 diamantes = S/ 25.00<br>
-💎 2398 diamantes = S/ 45.00<br>
-💎 6160 diamantes = S/ 107.00<br><br>
+        body {
+            background-color: #0d0e12;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
 
-⭐ Pase Élite = S/ 6.00<br><br>
+        /* BARRA SUPERIOR DE NOTIFICACIÓN */
+        .ticker-bar {
+            width: 100%;
+            background-color: #d97706;
+            color: #ffffff;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 8px 15px;
+            text-align: center;
+            overflow: hidden;
+            white-space: nowrap;
+        }
 
-🆔 Recarga por ID + Apodo<br><br>
+        /* NAVEGACIÓN */
+        nav {
+            width: 100%;
+            max-width: 500px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
 
-💳 Pagos:<br>
-✅ Yape<br>
-✅ Prexpe<br><br>
+        .logo {
+            font-weight: 800;
+            font-size: 20px;
+            color: #fbbf24;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
 
-📲 WhatsApp: 943484217<br>
-💰 Yape: 969061421
-</p>
+        .btn-header {
+            background-color: #f59e0b;
+            color: #000;
+            padding: 8px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 13px;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            max-width: 500px;
+            width: 100%;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .badge-official {
+            display: inline-block;
+            background: rgba(245, 158, 11, 0.15);
+            color: #fbbf24;
+            border: 1px solid rgba(245, 158, 11, 0.4);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 15px;
+        }
+
+        h1 span {
+            color: #f59e0b;
+        }
+
+        p.desc {
+            color: #9ca3af;
+            font-size: 13px;
+            line-height: 1.5;
+            margin-bottom: 25px;
+        }
+
+        .btn-main {
+            display: block;
+            width: 100%;
+            background-color: #f59e0b;
+            color: #000;
+            padding: 14px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 15px;
+            box-shadow: 0 4px 20px rgba(245, 158, 11, 0.3);
+            margin-bottom: 30px;
+        }
+
+        /* CONTADORES Y ESTADÍSTICAS */
+        .stats-grid {
+            display: flex;
+            justify-content: space-around;
+            background: #16181e;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #262932;
+            margin-bottom: 20px;
+        }
+
+        .stat-item h2 {
+            color: #f59e0b;
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        .stat-item p {
+            color: #6b7280;
+            font-size: 11px;
+            text-transform: uppercase;
+        }
+
+        /* PRECIOS Y PAQUETES */
+        .prices-container {
+            width: 100%;
+            text-align: left;
+            margin-top: 20px;
+        }
+
+        .prices-container h3 {
+            font-size: 16px;
+            margin-bottom: 12px;
+            color: #fbbf24;
+        }
+
+        .price-card {
+            background: #16181e;
+            border: 1px solid #262932;
+            padding: 12px 16px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .price-card .item-name {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .price-card .item-price {
+            color: #4ade80;
+            font-weight: 700;
+            font-size: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- BARRA SUPERIOR CON NOTIFICACIÓN CONTINUA -->
+    <div class="ticker-bar">
+        ⚡ ÚLTIMA COMPRA: +572 Diamantes recargados exitosamente por ID
+    </div>
+
+    <!-- NAVEGACIÓN SUPERIOR -->
+    <nav>
+        <div class="logo">ELERA</div>
+        <a href="https://wa.me/51943484217" class="btn-header">Contacto →</a>
+    </nav>
+
+    <!-- SECCIÓN PRINCIPAL -->
+    <div class="hero">
+        <div class="badge-official">★ TIENDA OFICIAL</div>
+        
+        <h1>Tu tienda de <span>recargas de juegos</span> de confianza</h1>
+        
+        <p class="desc">
+            Diamantes, pases y más. Recarga de forma rápida y segura con los mejores precios del mercado.
+        </p>
+
+        <a href="#precios" class="btn-main">Ver precios y ofertas 👇</a>
+
+        <!-- ESTADÍSTICAS QUE GENERAN CONFIANZA -->
+        <div class="stats-grid">
+            <div class="stat-item">
+                <h2>+1,500</h2>
+                <p>Ventas realizadas</p>
+            </div>
+            <div class="stat-item">
+                <h2>100%</h2>
+                <p>Seguro por ID</p>
+            </div>
+            <div class="stat-item">
+                <h2>Inmediato</h2>
+                <p>Entrega rápida</p>
+            </div>
+        </div>
+
+        <!-- LISTA DE PRECIOS -->
+        <div class="prices-container" id="precios">
+            <h3>💎 Recargas Free Fire (Soles S/)</h3>
+
+            <div class="price-card">
+                <span class="item-name">💎 100 Diamantes</span>
+                <span class="item-price">S/ 2.90</span>
+            </div>
+            <div class="price-card">
+                <span class="item-name">💎 341 Diamantes</span>
+                <span class="item-price">S/ 8.50</span>
+            </div>
+            <div class="price-card">
+                <span class="item-name">💎 572 Diamantes</span>
+                <span class="item-price">S/ 12.50</span>
+            </div>
+            <div class="price-card">
+                <span class="item-name">💎 1,166 Diamantes</span>
+                <span class="item-price">S/ 25.00</span>
+            </div>
+            <div class="price-card">
+                <span class="item-name">💎 2,398 Diamantes</span>
+                <span class="item-price">S/ 45.00</span>
+            </div>
+            <div class="price-card">
+                <span class="item-name">💎 6,160 Diamantes</span>
+                <span class="item-price">S/ 107.00</span>
+            </div>
+            <div class="price-card">
+                <span class="item-name">⭐ Pase Élite</span>
+                <span class="item-price">S/ 6.00</span>
+            </div>
+        </div>
+
+        <a href="https://wa.me/51943484217?text=Hola,%20quiero%20hacer%20una%20recarga" class="btn-main" style="margin-top: 25px;">
+            📱 Comprar por WhatsApp
+        </a>
+    </div>
+
+</body>
+</html>
   
 </body>
 </html>
