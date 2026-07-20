@@ -14,10 +14,9 @@
         .btn-auth { background: #06b6d4; color: #000; border: none; padding: 7px 12px; border-radius: 8px; font-weight: 700; font-size: 12px; cursor: pointer; }
         .container { max-width: 500px; width: 100%; padding: 0 20px; text-align: center; }
         
-        /* BOTONES DE WHATSAPP */
-        .community-box { display: flex; gap: 10px; margin-top: 10px; margin-bottom: 5px; }
-        .btn-community { flex: 1; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 6px; padding: 10px; border-radius: 10px; font-size: 12px; font-weight: 700; color: #fff; transition: 0.2s; }
-        .btn-group { background: #25D366; }
+        /* BOTÓN DE CANAL DE WHATSAPP */
+        .community-box { display: flex; margin-top: 10px; margin-bottom: 5px; }
+        .btn-community { width: 100%; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 6px; padding: 10px; border-radius: 10px; font-size: 13px; font-weight: 700; color: #fff; transition: 0.2s; }
         .btn-channel { background: #0088cc; }
 
         /* BILLETERA */
@@ -52,13 +51,10 @@
 
     <div class="container">
 
-        <!-- BOTONES A TUS GRUPOS Y CANALES -->
+        <!-- BOTÓN EXCLUSIVO AL CANAL DE WHATSAPP -->
         <div class="community-box">
-            <a href="https://chat.whatsapp.com/TU_GRUPO_AQUI" target="_blank" class="btn-community btn-group">
-                💬 Grupo WhatsApp
-            </a>
             <a href="https://whatsapp.com/channel/0029VbCnNEMGpLHPhMOzAO01" target="_blank" class="btn-community btn-channel">
-                📢 Canal WhatsApp
+                📢 Unirse a nuestro Canal de WhatsApp
             </a>
         </div>
 
@@ -154,7 +150,8 @@
             projectId: "elera-ventas",
             storageBucket: "elera-ventas.firebasestorage.app",
             messagingSenderId: "665318794843",
-            appId: "1:665318794843:web:0"
+            appId: "1:665318794843:web:5be6c5276958944fcdc17e",
+            measurementId: "G-Y4EJXC9BL2"
         };
 
         firebase.initializeApp(firebaseConfig);
@@ -259,3 +256,4 @@
     </script>
 </body>
 </html>
+
