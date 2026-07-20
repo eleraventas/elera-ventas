@@ -6,321 +6,256 @@
     <title>Ventas Elera | Recargas Pro</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Poppins', sans-serif;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+        body { background-color: #070a14; color: #ffffff; display: flex; flex-direction: column; align-items: center; min-height: 100vh; padding-bottom: 30px; }
+        .top-banner { width: 100%; background: linear-gradient(90deg, #06b6d4, #3b82f6); color: #ffffff; font-size: 11px; font-weight: 700; padding: 6px 10px; text-align: center; }
+        nav { width: 100%; max-width: 500px; display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; }
+        .logo-text { font-weight: 800; font-size: 18px; background: linear-gradient(90deg, #06b6d4, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .btn-auth { background: #06b6d4; color: #000; border: none; padding: 7px 12px; border-radius: 8px; font-weight: 700; font-size: 12px; cursor: pointer; }
+        .container { max-width: 500px; width: 100%; padding: 0 20px; text-align: center; }
+        
+        /* BOTONES DE WHATSAPP */
+        .community-box { display: flex; gap: 10px; margin-top: 10px; margin-bottom: 5px; }
+        .btn-community { flex: 1; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 6px; padding: 10px; border-radius: 10px; font-size: 12px; font-weight: 700; color: #fff; transition: 0.2s; }
+        .btn-group { background: #25D366; }
+        .btn-channel { background: #0088cc; }
 
-        body {
-            background-color: #070a14;
-            color: #ffffff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-        }
+        /* BILLETERA */
+        .wallet-box { background: #0f172a; border: 1px solid #1e293b; border-radius: 14px; padding: 15px; margin: 15px 0; text-align: left; display: flex; justify-content: space-between; align-items: center; }
+        .wallet-amount { font-size: 20px; font-weight: 800; color: #4ade80; }
+        .btn-add { background: #a855f7; color: #fff; border: none; padding: 8px 14px; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 12px; }
 
-        /* BARRA SUPERIOR DE ANUNCIO EN CIAN */
-        .top-banner {
-            width: 100%;
-            background: linear-gradient(90deg, #06b6d4, #3b82f6);
-            color: #ffffff;
-            font-size: 12px;
-            font-weight: 700;
-            padding: 8px 15px;
-            text-align: center;
-            letter-spacing: 0.5px;
-        }
-
-        /* NAVEGACIÓN Y LOGO */
-        nav {
-            width: 100%;
-            max-width: 500px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 20px;
-        }
-
-        .logo-box {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .logo-icon {
-            width: 35px;
-            height: 35px;
-            background: linear-gradient(135deg, #a855f7, #06b6d4);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            font-weight: 800;
-        }
-
-        .logo-text {
-            font-weight: 800;
-            font-size: 18px;
-            background: linear-gradient(90deg, #06b6d4, #a855f7);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .btn-contact {
-            background: transparent;
-            border: 1px solid #06b6d4;
-            color: #06b6d4;
-            padding: 7px 14px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 12px;
-        }
-
-        /* HERO / PRESENTACIÓN */
-        .container {
-            max-width: 500px;
-            width: 100%;
-            padding: 20px;
-            text-align: center;
-        }
-
-        .badge-verified {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: rgba(6, 182, 212, 0.12);
-            color: #06b6d4;
-            border: 1px solid rgba(6, 182, 212, 0.4);
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 700;
-            margin-bottom: 15px;
-        }
-
-        h1 {
-            font-size: 26px;
-            font-weight: 800;
-            line-height: 1.2;
-            margin-bottom: 12px;
-            text-transform: uppercase;
-        }
-
-        p.desc {
-            color: #94a3b8;
-            font-size: 13px;
-            line-height: 1.5;
-            margin-bottom: 25px;
-        }
-
-        /* ESTADÍSTICAS O DATOS */
-        .stats-box {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            background: #0f172a;
-            padding: 15px;
-            border-radius: 14px;
-            border: 1px solid #1e293b;
-            margin-bottom: 25px;
-        }
-
-        .stat-item h3 {
-            color: #06b6d4;
-            font-size: 16px;
-            font-weight: 800;
-        }
-
-        .stat-item p {
-            color: #64748b;
-            font-size: 10px;
-            font-weight: 600;
-            text-transform: uppercase;
-        }
-
-        /* TARJETAS DE PAQUETES (EN REJILLA) */
-        .packages-title {
-            text-align: left;
-            font-size: 16px;
-            font-weight: 700;
-            color: #e2e8f0;
-            margin-bottom: 15px;
-        }
-
-        .grid-prices {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-
-        .card-price {
-            background: #0f172a;
-            border: 1px solid #1e293b;
-            border-radius: 14px;
-            padding: 16px 12px;
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-            transition: transform 0.2s;
-        }
-
-        .card-price:hover {
-            border-color: #06b6d4;
-            transform: translateY(-2px);
-        }
-
-        .diamonds-amount {
-            font-size: 15px;
-            font-weight: 800;
-            color: #ffffff;
-            margin-bottom: 6px;
-        }
-
-        .diamonds-price {
-            font-size: 18px;
-            font-weight: 800;
-            color: #06b6d4;
-        }
-
-        .full-width-card {
-            grid-column: span 2;
-            background: linear-gradient(135deg, rgba(168, 85, 247, 0.15), rgba(6, 182, 212, 0.15));
-            border: 1px solid #a855f7;
-        }
-
-        .full-width-card .diamonds-price {
-            color: #c084fc;
-        }
-
-        /* BOTÓN PRINCIPAL WHATSAPP */
-        .btn-whatsapp {
-            display: block;
-            width: 100%;
-            background: linear-gradient(90deg, #06b6d4, #22c55e);
-            color: #ffffff;
-            padding: 16px;
-            border-radius: 14px;
-            text-decoration: none;
-            font-weight: 800;
-            font-size: 16px;
-            box-shadow: 0 4px 20px rgba(6, 182, 212, 0.4);
-            margin-top: 10px;
-            margin-bottom: 25px;
-        }
-
-        .payment-info {
-            background: #0f172a;
-            border: 1px dashed #334155;
-            padding: 15px;
-            border-radius: 12px;
-            font-size: 12px;
-            color: #94a3b8;
-            text-align: center;
-        }
+        /* GRID PRECIOS */
+        .grid-prices { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
+        .card-price { background: #0f172a; border: 1px solid #1e293b; border-radius: 12px; padding: 12px; text-align: center; }
+        .diamonds-amount { font-size: 14px; font-weight: 700; color: #fff; }
+        .diamonds-price { font-size: 16px; font-weight: 800; color: #06b6d4; margin: 5px 0; }
+        .btn-buy { width: 100%; background: #06b6d4; color: #000; border: none; padding: 6px; border-radius: 6px; font-weight: 700; font-size: 11px; cursor: pointer; }
+        
+        /* MODALES */
+        .modal { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); justify-content:center; align-items:center; z-index:1000; }
+        .modal-content { background:#0f172a; padding:20px; border-radius:14px; width:90%; max-width:400px; border:1px solid #334155; }
+        input { width:100%; padding:10px; margin:8px 0; border-radius:8px; border:1px solid #334155; background:#1e293b; color:#fff; }
+        
+        /* ADMIN PANEL */
+        .admin-panel { display: none; background: #1e1b4b; border: 1px solid #6366f1; border-radius: 14px; padding: 15px; margin-top: 20px; text-align: left; }
     </style>
 </head>
 <body>
 
-    <!-- BARRA SUPERIOR DE ANUNCIO -->
-    <div class="top-banner">
-        🚀 RECARGAS RÁPIDAS POR ID — ENTREGA SEGURA Y GARANTIZADA
-    </div>
+    <div class="top-banner">🚀 RECARGAS POR ID — ELERA VENTAS</div>
 
-    <!-- NAVEGACIÓN -->
     <nav>
-        <div class="logo-box">
-            <div class="logo-icon">E</div>
-            <div class="logo-text">ELERA RECARGAS</div>
-        </div>
-        <a href="https://wa.me/51943484217" class="btn-contact">Soporte</a>
+        <div class="logo-text">ELERA RECARGAS</div>
+        <button class="btn-auth" id="authBtn" onclick="openModal('authModal')">Ingresar</button>
     </nav>
 
-    <!-- CONTENIDO PRINCIPAL -->
     <div class="container">
-        
-        <div class="badge-verified">
-            ✔ PROVEEDOR VERIFICADO
+
+        <!-- BOTONES A TUS GRUPOS Y CANALES -->
+        <div class="community-box">
+            <a href="https://chat.whatsapp.com/TU_GRUPO_AQUI" target="_blank" class="btn-community btn-group">
+                💬 Grupo WhatsApp
+            </a>
+            <a href="https://whatsapp.com/channel/0029VbCnNEMGpLHPhMOzAO01" target="_blank" class="btn-community btn-channel">
+                📢 Canal WhatsApp
+            </a>
         </div>
 
-        <h1>Ventas Elera — Recargas Pro</h1>
-
-        <p class="desc">
-            Tu portal seguro y veloz para potenciar tu cuenta de Free Fire con los mejores precios en soles.
-        </p>
-
-        <!-- DATOS DE CONFIANZA -->
-        <div class="stats-box">
-            <div class="stat-item">
-                <h3>+2,500</h3>
-                <p>Ventas Exitosas</p>
+        <!-- BILLETERA -->
+        <div class="wallet-box">
+            <div>
+                <div style="font-size: 11px; color: #94a3b8;">Mi Saldo Disponible</div>
+                <div class="wallet-amount" id="userBalance">S/ 0.00</div>
             </div>
-            <div class="stat-item">
-                <h3>Directo</h3>
-                <p>Por ID + Apodo</p>
-            </div>
-            <div class="stat-item">
-                <h3>Rápido</h3>
-                <p>Entrega Express</p>
-            </div>
+            <button class="btn-add" onclick="openModal('rechargeModal')">➕ Recargar Saldo</button>
         </div>
 
-        <!-- LISTA DE PAQUETES CON TUS PRECIOS EXACTOS -->
-        <div class="packages-title">💎 Selecciona tu paquete de Diamantes:</div>
+        <h3 style="text-align: left; font-size: 15px; margin-top: 15px; color: #06b6d4;">💎 Catálogo de Diamantes</h3>
 
+        <!-- OFERTAS DE DIAMANTES -->
         <div class="grid-prices">
             <div class="card-price">
                 <div class="diamonds-amount">💎 100 Diamantes</div>
                 <div class="diamonds-price">S/ 2.90</div>
+                <button class="btn-buy" onclick="buyItem('100 Diamantes', 2.90)">Comprar</button>
             </div>
-
             <div class="card-price">
                 <div class="diamonds-amount">💎 341 Diamantes</div>
                 <div class="diamonds-price">S/ 8.50</div>
+                <button class="btn-buy" onclick="buyItem('341 Diamantes', 8.50)">Comprar</button>
             </div>
-
             <div class="card-price">
                 <div class="diamonds-amount">💎 572 Diamantes</div>
                 <div class="diamonds-price">S/ 12.50</div>
+                <button class="btn-buy" onclick="buyItem('572 Diamantes', 12.50)">Comprar</button>
             </div>
-
             <div class="card-price">
                 <div class="diamonds-amount">💎 1,166 Diamantes</div>
                 <div class="diamonds-price">S/ 25.00</div>
+                <button class="btn-buy" onclick="buyItem('1,166 Diamantes', 25.00)">Comprar</button>
             </div>
-
             <div class="card-price">
                 <div class="diamonds-amount">💎 2,398 Diamantes</div>
                 <div class="diamonds-price">S/ 45.00</div>
+                <button class="btn-buy" onclick="buyItem('2,398 Diamantes', 45.00)">Comprar</button>
             </div>
-
             <div class="card-price">
                 <div class="diamonds-amount">💎 6,160 Diamantes</div>
                 <div class="diamonds-price">S/ 107.00</div>
-            </div>
-
-            <div class="card-price full-width-card">
-                <div class="diamonds-amount">⭐ Pase Élite / Pase de Nivel</div>
-                <div class="diamonds-price">S/ 6.00</div>
+                <button class="btn-buy" onclick="buyItem('6,160 Diamantes', 107.00)">Comprar</button>
             </div>
         </div>
 
-        <!-- BOTÓN DE COMPRA POR WHATSAPP -->
-        <a href="https://wa.me/51943484217?text=Hola,%20deseo%20realizar%20una%20recarga%20de%20diamantes" class="btn-whatsapp" target="_blank">
-            📱 Pedir Recarga por WhatsApp
-        </a>
-
-        <!-- MÉTODOS DE PAGO -->
-        <div class="payment-info">
-            💳 <strong>Métodos de Pago Aceptados:</strong><br>
-            Yape, Prexpe o Plin (Al instante)
+        <!-- PANEL DE ADMIN -->
+        <div class="admin-panel" id="adminPanel">
+            <h4 style="color: #a855f7;">🛠️ Panel Administrador</h4>
+            <p style="font-size: 11px; color: #cbd5e1; margin-bottom: 10px;">Carga saldo a tus clientes:</p>
+            <input type="text" id="adminUserEmail" placeholder="Correo exacto del cliente">
+            <input type="number" id="adminAmount" placeholder="Monto en Soles (Ej: 20)">
+            <button class="btn-add" style="width: 100%; margin-top: 5px;" onclick="addBalanceAdmin()">Aprobar y Sumar Saldo</button>
         </div>
-
     </div>
 
+    <!-- MODAL DE ACCESO -->
+    <div class="modal" id="authModal">
+        <div class="modal-content">
+            <h3>Iniciar Sesión / Registro</h3>
+            <input type="email" id="email" placeholder="Correo electrónico">
+            <input type="password" id="password" placeholder="Contraseña">
+            <button class="btn-add" style="width:100%; margin-top:10px;" onclick="login()">Ingresar</button>
+            <button class="btn-buy" style="width:100%; margin-top:5px;" onclick="register()">Registrarse</button>
+            <button onclick="closeModal('authModal')" style="background:none; border:none; color:#94a3b8; margin-top:10px; cursor:pointer; width:100%;">Cerrar</button>
+        </div>
+    </div>
+
+    <!-- MODAL DE RECARGA DE SALDO -->
+    <div class="modal" id="rechargeModal">
+        <div class="modal-content">
+            <h3>Cargar Saldo a tu Billetera</h3>
+            <p style="font-size: 12px; color: #94a3b8; margin: 8px 0;">Yapea/Prex al <strong>943484217</strong> e ingresa los datos:</p>
+            <input type="number" id="payAmount" placeholder="Monto depositado (S/)">
+            <input type="text" id="payOp" placeholder="N° de Operación">
+            <button class="btn-add" style="width:100%; margin-top:10px;" onclick="requestDeposit()">Enviar Reporte</button>
+            <button onclick="closeModal('rechargeModal')" style="background:none; border:none; color:#94a3b8; margin-top:10px; cursor:pointer; width:100%;">Cancelar</button>
+        </div>
+    </div>
+
+    <!-- FIREBASE SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyCXCmK91rGT414l5Lkyxbjd77N4sLYNTc",
+            authDomain: "elera-ventas.firebaseapp.com",
+            databaseURL: "https://elera-ventas-default-rtdb.firebaseio.com",
+            projectId: "elera-ventas",
+            storageBucket: "elera-ventas.firebasestorage.app",
+            messagingSenderId: "665318794843",
+            appId: "1:665318794843:web:0"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.database();
+
+        let currentUser = null;
+        let currentBalance = 0;
+
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                currentUser = user;
+                document.getElementById('authBtn').innerText = "Salir";
+                document.getElementById('authBtn').onclick = logout;
+                loadUserData();
+                if(user.email === "admin@elera.com") {
+                    document.getElementById('adminPanel').style.display = 'block';
+                }
+            } else {
+                currentUser = null;
+                document.getElementById('authBtn').innerText = "Ingresar";
+                document.getElementById('authBtn').onclick = () => openModal('authModal');
+                document.getElementById('userBalance').innerText = "S/ 0.00";
+                document.getElementById('adminPanel').style.display = 'none';
+            }
+        });
+
+        function loadUserData() {
+            db.ref('users/' + currentUser.uid).on('value', snapshot => {
+                const data = snapshot.val();
+                if (data) {
+                    currentBalance = data.balance || 0;
+                    document.getElementById('userBalance').innerText = "S/ " + currentBalance.toFixed(2);
+                } else {
+                    db.ref('users/' + currentUser.uid).set({ balance: 0, email: currentUser.email });
+                }
+            });
+        }
+
+        function register() {
+            const e = document.getElementById('email').value;
+            const p = document.getElementById('password').value;
+            auth.createUserWithEmailAndPassword(e, p).then(() => closeModal('authModal')).catch(err => alert(err.message));
+        }
+
+        function login() {
+            const e = document.getElementById('email').value;
+            const p = document.getElementById('password').value;
+            auth.signInWithEmailAndPassword(e, p).then(() => closeModal('authModal')).catch(err => alert(err.message));
+        }
+
+        function logout() { auth.signOut(); }
+
+        function requestDeposit() {
+            const amount = document.getElementById('payAmount').value;
+            const op = document.getElementById('payOp').value;
+            if(!amount || !op) return alert("Completa los datos");
+            
+            const msg = `Hola, recargué S/ ${amount}. N° Operación: ${op}. Correo: ${currentUser ? currentUser.email : 'No registrado'}`;
+            window.open(`https://wa.me/51943484217?text=${encodeURIComponent(msg)}`, '_blank');
+            closeModal('rechargeModal');
+        }
+
+        function buyItem(item, price) {
+            if (!currentUser) return openModal('authModal');
+            if (currentBalance < price) return alert("Saldo insuficiente. Por favor recarga tu billetera.");
+
+            const playerID = prompt("Ingresa tu ID de Jugador de Free Fire:");
+            if (!playerID) return;
+
+            const newBal = currentBalance - price;
+            db.ref('users/' + currentUser.uid).update({ balance: newBal }).then(() => {
+                alert(`¡Compra realizada! Se enviarán ${item} al ID: ${playerID}`);
+                const msg = `NUEVA COMPRA:\nPaquete: ${item}\nID Jugador: ${playerID}\nUsuario: ${currentUser.email}`;
+                window.open(`https://wa.me/51943484217?text=${encodeURIComponent(msg)}`, '_blank');
+            });
+        }
+
+        function addBalanceAdmin() {
+            const targetEmail = document.getElementById('adminUserEmail').value.trim();
+            const amount = parseFloat(document.getElementById('adminAmount').value);
+            
+            if(!targetEmail || isNaN(amount)) return alert("Ingresa datos válidos");
+
+            db.ref('users').once('value', snapshot => {
+                let found = false;
+                snapshot.forEach(child => {
+                    if(child.val().email === targetEmail) {
+                        found = true;
+                        const prev = child.val().balance || 0;
+                        db.ref('users/' + child.key).update({ balance: prev + amount }).then(() => {
+                            alert("¡Saldo acreditado con éxito!");
+                        });
+                    }
+                });
+                if(!found) alert("Usuario no encontrado.");
+            });
+        }
+
+        function openModal(id) { document.getElementById(id).style.display = 'flex'; }
+        function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+    </script>
 </body>
 </html>
