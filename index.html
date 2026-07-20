@@ -1,18 +1,9 @@
 <!DOCTYPE html>
-<html>
-<head>
-<title>Elera Ventas-recargas freefire</title>
-</head>
-<body>
-<h1>Elera Ventas-diamantes freefire</h1>
-<p>Plataforma de ventas de diamantes Free Fire y recargas digitales.</p><h2>💎 Recargas de Diamantes Free Fire 💎</h2>
-
-<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elera Ventas | Tienda Oficial</title>
+    <title>Ventas Elera | Recargas Pro</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         * {
@@ -23,7 +14,7 @@
         }
 
         body {
-            background-color: #0d0e12;
+            background-color: #070a14;
             color: #ffffff;
             display: flex;
             flex-direction: column;
@@ -31,20 +22,19 @@
             min-height: 100vh;
         }
 
-        /* BARRA SUPERIOR DE NOTIFICACIÓN */
-        .ticker-bar {
+        /* BARRA SUPERIOR DE ANUNCIO EN CIAN */
+        .top-banner {
             width: 100%;
-            background-color: #d97706;
+            background: linear-gradient(90deg, #06b6d4, #3b82f6);
             color: #ffffff;
             font-size: 12px;
-            font-weight: 600;
+            font-weight: 700;
             padding: 8px 15px;
             text-align: center;
-            overflow: hidden;
-            white-space: nowrap;
+            letter-spacing: 0.5px;
         }
 
-        /* NAVEGACIÓN */
+        /* NAVEGACIÓN Y LOGO */
         nav {
             width: 100%;
             max-width: 500px;
@@ -54,218 +44,283 @@
             padding: 15px 20px;
         }
 
-        .logo {
-            font-weight: 800;
-            font-size: 20px;
-            color: #fbbf24;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+        .logo-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        .btn-header {
-            background-color: #f59e0b;
-            color: #000;
-            padding: 8px 16px;
+        .logo-icon {
+            width: 35px;
+            height: 35px;
+            background: linear-gradient(135deg, #a855f7, #06b6d4);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+        .logo-text {
+            font-weight: 800;
+            font-size: 18px;
+            background: linear-gradient(90deg, #06b6d4, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .btn-contact {
+            background: transparent;
+            border: 1px solid #06b6d4;
+            color: #06b6d4;
+            padding: 7px 14px;
             border-radius: 8px;
             text-decoration: none;
-            font-weight: 700;
-            font-size: 13px;
+            font-weight: 600;
+            font-size: 12px;
         }
 
-        /* HERO SECTION */
-        .hero {
+        /* HERO / PRESENTACIÓN */
+        .container {
             max-width: 500px;
             width: 100%;
             padding: 20px;
             text-align: center;
         }
 
-        .badge-official {
-            display: inline-block;
-            background: rgba(245, 158, 11, 0.15);
-            color: #fbbf24;
-            border: 1px solid rgba(245, 158, 11, 0.4);
-            padding: 5px 15px;
+        .badge-verified {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(6, 182, 212, 0.12);
+            color: #06b6d4;
+            border: 1px solid rgba(6, 182, 212, 0.4);
+            padding: 6px 16px;
             border-radius: 20px;
-            font-size: 11px;
+            font-size: 12px;
             font-weight: 700;
-            letter-spacing: 1px;
             margin-bottom: 15px;
         }
 
         h1 {
-            font-size: 28px;
+            font-size: 26px;
             font-weight: 800;
             line-height: 1.2;
-            margin-bottom: 15px;
-        }
-
-        h1 span {
-            color: #f59e0b;
+            margin-bottom: 12px;
+            text-transform: uppercase;
         }
 
         p.desc {
-            color: #9ca3af;
+            color: #94a3b8;
             font-size: 13px;
             line-height: 1.5;
             margin-bottom: 25px;
         }
 
-        .btn-main {
-            display: block;
-            width: 100%;
-            background-color: #f59e0b;
-            color: #000;
-            padding: 14px;
-            border-radius: 12px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 15px;
-            box-shadow: 0 4px 20px rgba(245, 158, 11, 0.3);
-            margin-bottom: 30px;
+        /* ESTADÍSTICAS O DATOS */
+        .stats-box {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            background: #0f172a;
+            padding: 15px;
+            border-radius: 14px;
+            border: 1px solid #1e293b;
+            margin-bottom: 25px;
         }
 
-        /* CONTADORES Y ESTADÍSTICAS */
-        .stats-grid {
-            display: flex;
-            justify-content: space-around;
-            background: #16181e;
-            padding: 20px;
-            border-radius: 12px;
-            border: 1px solid #262932;
-            margin-bottom: 20px;
-        }
-
-        .stat-item h2 {
-            color: #f59e0b;
-            font-size: 20px;
+        .stat-item h3 {
+            color: #06b6d4;
+            font-size: 16px;
             font-weight: 800;
         }
 
         .stat-item p {
-            color: #6b7280;
-            font-size: 11px;
+            color: #64748b;
+            font-size: 10px;
+            font-weight: 600;
             text-transform: uppercase;
         }
 
-        /* PRECIOS Y PAQUETES */
-        .prices-container {
-            width: 100%;
+        /* TARJETAS DE PAQUETES (EN REJILLA) */
+        .packages-title {
             text-align: left;
-            margin-top: 20px;
-        }
-
-        .prices-container h3 {
             font-size: 16px;
-            margin-bottom: 12px;
-            color: #fbbf24;
-        }
-
-        .price-card {
-            background: #16181e;
-            border: 1px solid #262932;
-            padding: 12px 16px;
-            border-radius: 10px;
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .price-card .item-name {
-            font-size: 14px;
-            font-weight: 600;
-        }
-
-        .price-card .item-price {
-            color: #4ade80;
             font-weight: 700;
+            color: #e2e8f0;
+            margin-bottom: 15px;
+        }
+
+        .grid-prices {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .card-price {
+            background: #0f172a;
+            border: 1px solid #1e293b;
+            border-radius: 14px;
+            padding: 16px 12px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s;
+        }
+
+        .card-price:hover {
+            border-color: #06b6d4;
+            transform: translateY(-2px);
+        }
+
+        .diamonds-amount {
             font-size: 15px;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 6px;
+        }
+
+        .diamonds-price {
+            font-size: 18px;
+            font-weight: 800;
+            color: #06b6d4;
+        }
+
+        .full-width-card {
+            grid-column: span 2;
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.15), rgba(6, 182, 212, 0.15));
+            border: 1px solid #a855f7;
+        }
+
+        .full-width-card .diamonds-price {
+            color: #c084fc;
+        }
+
+        /* BOTÓN PRINCIPAL WHATSAPP */
+        .btn-whatsapp {
+            display: block;
+            width: 100%;
+            background: linear-gradient(90deg, #06b6d4, #22c55e);
+            color: #ffffff;
+            padding: 16px;
+            border-radius: 14px;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 16px;
+            box-shadow: 0 4px 20px rgba(6, 182, 212, 0.4);
+            margin-top: 10px;
+            margin-bottom: 25px;
+        }
+
+        .payment-info {
+            background: #0f172a;
+            border: 1px dashed #334155;
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 12px;
+            color: #94a3b8;
+            text-align: center;
         }
     </style>
 </head>
 <body>
 
-    <!-- BARRA SUPERIOR CON NOTIFICACIÓN CONTINUA -->
-    <div class="ticker-bar">
-        ⚡ ÚLTIMA COMPRA: +572 Diamantes recargados exitosamente por ID
+    <!-- BARRA SUPERIOR DE ANUNCIO -->
+    <div class="top-banner">
+        🚀 RECARGAS RÁPIDAS POR ID — ENTREGA SEGURA Y GARANTIZADA
     </div>
 
-    <!-- NAVEGACIÓN SUPERIOR -->
+    <!-- NAVEGACIÓN -->
     <nav>
-        <div class="logo">ELERA</div>
-        <a href="https://wa.me/51943484217" class="btn-header">Contacto →</a>
+        <div class="logo-box">
+            <div class="logo-icon">E</div>
+            <div class="logo-text">ELERA RECARGAS</div>
+        </div>
+        <a href="https://wa.me/51943484217" class="btn-contact">Soporte</a>
     </nav>
 
-    <!-- SECCIÓN PRINCIPAL -->
-    <div class="hero">
-        <div class="badge-official">★ TIENDA OFICIAL</div>
+    <!-- CONTENIDO PRINCIPAL -->
+    <div class="container">
         
-        <h1>Tu tienda de <span>recargas de juegos</span> de confianza</h1>
-        
+        <div class="badge-verified">
+            ✔ PROVEEDOR VERIFICADO
+        </div>
+
+        <h1>Ventas Elera — Recargas Pro</h1>
+
         <p class="desc">
-            Diamantes, pases y más. Recarga de forma rápida y segura con los mejores precios del mercado.
+            Tu portal seguro y veloz para potenciar tu cuenta de Free Fire con los mejores precios en soles.
         </p>
 
-        <a href="#precios" class="btn-main">Ver precios y ofertas 👇</a>
-
-        <!-- ESTADÍSTICAS QUE GENERAN CONFIANZA -->
-        <div class="stats-grid">
+        <!-- DATOS DE CONFIANZA -->
+        <div class="stats-box">
             <div class="stat-item">
-                <h2>+1,500</h2>
-                <p>Ventas realizadas</p>
+                <h3>+2,500</h3>
+                <p>Ventas Exitosas</p>
             </div>
             <div class="stat-item">
-                <h2>100%</h2>
-                <p>Seguro por ID</p>
+                <h3>Directo</h3>
+                <p>Por ID + Apodo</p>
             </div>
             <div class="stat-item">
-                <h2>Inmediato</h2>
-                <p>Entrega rápida</p>
+                <h3>Rápido</h3>
+                <p>Entrega Express</p>
             </div>
         </div>
 
-        <!-- LISTA DE PRECIOS -->
-        <div class="prices-container" id="precios">
-            <h3>💎 Recargas Free Fire (Soles S/)</h3>
+        <!-- LISTA DE PAQUETES CON TUS PRECIOS EXACTOS -->
+        <div class="packages-title">💎 Selecciona tu paquete de Diamantes:</div>
 
-            <div class="price-card">
-                <span class="item-name">💎 100 Diamantes</span>
-                <span class="item-price">S/ 2.90</span>
+        <div class="grid-prices">
+            <div class="card-price">
+                <div class="diamonds-amount">💎 100 Diamantes</div>
+                <div class="diamonds-price">S/ 2.90</div>
             </div>
-            <div class="price-card">
-                <span class="item-name">💎 341 Diamantes</span>
-                <span class="item-price">S/ 8.50</span>
+
+            <div class="card-price">
+                <div class="diamonds-amount">💎 341 Diamantes</div>
+                <div class="diamonds-price">S/ 8.50</div>
             </div>
-            <div class="price-card">
-                <span class="item-name">💎 572 Diamantes</span>
-                <span class="item-price">S/ 12.50</span>
+
+            <div class="card-price">
+                <div class="diamonds-amount">💎 572 Diamantes</div>
+                <div class="diamonds-price">S/ 12.50</div>
             </div>
-            <div class="price-card">
-                <span class="item-name">💎 1,166 Diamantes</span>
-                <span class="item-price">S/ 25.00</span>
+
+            <div class="card-price">
+                <div class="diamonds-amount">💎 1,166 Diamantes</div>
+                <div class="diamonds-price">S/ 25.00</div>
             </div>
-            <div class="price-card">
-                <span class="item-name">💎 2,398 Diamantes</span>
-                <span class="item-price">S/ 45.00</span>
+
+            <div class="card-price">
+                <div class="diamonds-amount">💎 2,398 Diamantes</div>
+                <div class="diamonds-price">S/ 45.00</div>
             </div>
-            <div class="price-card">
-                <span class="item-name">💎 6,160 Diamantes</span>
-                <span class="item-price">S/ 107.00</span>
+
+            <div class="card-price">
+                <div class="diamonds-amount">💎 6,160 Diamantes</div>
+                <div class="diamonds-price">S/ 107.00</div>
             </div>
-            <div class="price-card">
-                <span class="item-name">⭐ Pase Élite</span>
-                <span class="item-price">S/ 6.00</span>
+
+            <div class="card-price full-width-card">
+                <div class="diamonds-amount">⭐ Pase Élite / Pase de Nivel</div>
+                <div class="diamonds-price">S/ 6.00</div>
             </div>
         </div>
 
-        <a href="https://wa.me/51943484217?text=Hola,%20quiero%20hacer%20una%20recarga" class="btn-main" style="margin-top: 25px;">
-            📱 Comprar por WhatsApp
+        <!-- BOTÓN DE COMPRA POR WHATSAPP -->
+        <a href="https://wa.me/51943484217?text=Hola,%20deseo%20realizar%20una%20recarga%20de%20diamantes" class="btn-whatsapp" target="_blank">
+            📱 Pedir Recarga por WhatsApp
         </a>
+
+        <!-- MÉTODOS DE PAGO -->
+        <div class="payment-info">
+            💳 <strong>Métodos de Pago Aceptados:</strong><br>
+            Yape, Prexpe o Plin (Al instante)
+        </div>
+
     </div>
 
-</body>
-</html>
-  
 </body>
 </html>
