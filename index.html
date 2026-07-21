@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tienda de Diamantes - Con Capturas de Yape</title>
+  <title>Elera Ventas - Tienda</title>
 </head>
 <body style="background: #060913; margin: 0; padding: 0; font-family: sans-serif; color: #fff;">
 
@@ -12,7 +12,7 @@
   <!-- ========================================== -->
   <div id="vista-auth" style="max-width: 400px; margin: 50px auto; background: #0b0f19; padding: 25px; border-radius: 16px; border: 1px solid #1e293b; box-sizing: border-box;">
     <div style="text-align: center; margin-bottom: 20px;">
-      <h2 style="margin: 0; color: #f8fafc; font-size: 22px;">💎 TIENDA FREE FIRE 💎</h2>
+      <h2 style="margin: 0; color: #f8fafc; font-size: 22px;">💎 ELERA VENTAS 💎</h2>
       <p id="auth-titulo" style="font-size: 13px; color: #94a3b8; margin-top: 5px;">Inicia sesión con tu cuenta</p>
     </div>
 
@@ -27,7 +27,7 @@
     </div>
 
     <button type="button" id="btn-accion-auth" onclick="procesarAuth()" style="width: 100%; padding: 14px; background: #2563eb; color: #fff; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 15px; margin-bottom: 10px;">Iniciar Sesión</button>
-    <button type="button" onclick="cambiarModoAuth()" style="width: 100%; padding: 10px; background: transparent; color: #38bdf8; border: none; font-size: 12px; cursor: pointer;" id="btn-cambiar-modo">¿No tienes cuenta? Regístrate aquí</button>
+    <button type="button" id="btn-cambiar-modo" onclick="cambiarModoAuth()" style="width: 100%; padding: 10px; background: transparent; color: #38bdf8; border: none; font-size: 12px; cursor: pointer;">¿No tienes cuenta? Regístrate aquí</button>
   </div>
 
 
@@ -38,7 +38,7 @@
     
     <div style="display: flex; justify-content: space-between; align-items: center; background: #111827; padding: 12px 15px; border-radius: 12px; border: 1px solid #1e293b; margin-bottom: 15px;">
       <div>
-        <span style="font-size: 11px; color: #94a3b8; display: block;">Cliente,</span>
+        <span style="font-size: 11px; color: #94a3b8; display: block;">Elera Ventas - Cliente</span>
         <b id="lbl-user-email" style="font-size: 13px; color: #38bdf8;">usuario@mail.com</b>
       </div>
       <div style="text-align: right;">
@@ -47,10 +47,8 @@
       </div>
     </div>
 
-    <!-- Botón para reportar recarga con captura -->
     <button onclick="abrirModalRecargaSaldo()" style="width: 100%; padding: 12px; background: #7d2ae8; color: #fff; border: none; border-radius: 10px; font-size: 13px; font-weight: bold; cursor: pointer; margin-bottom: 20px;">📸 Yapear y Enviar Captura de Pago</button>
 
-    <!-- SECCIÓN DE VERIFICACIÓN DE ID -->
     <div style="background: #111827; padding: 15px; border-radius: 12px; border: 1px solid #1e293b; margin-bottom: 20px;">
       <label style="display: block; font-size: 12px; color: #94a3b8; font-weight: bold; margin-bottom: 8px;">Ingresa tu User ID de Free Fire</label>
       <div style="display: flex; gap: 10px;">
@@ -60,7 +58,6 @@
       <div id="resultado-verificacion" style="display: none; margin-top: 10px; padding: 8px; background: rgba(16, 185, 129, 0.1); border: 1px solid #10b981; border-radius: 6px; font-size: 12px; color: #34d399;"></div>
     </div>
 
-    <!-- LISTA DE PAQUETES -->
     <h3 style="font-size: 13px; color: #94a3b8; text-transform: uppercase; margin-bottom: 12px;">🔥 Selecciona tu paquete:</h3>
     <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px;">
       <div onclick="seleccionarPaquete(this, '300 Diamantes', 10.00)" style="background: #111827; border: 2px solid #1e293b; padding: 12px; border-radius: 10px; cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
@@ -94,7 +91,7 @@
       
       <button onclick="cerrarModalRecarga()" style="position: absolute; top: 15px; right: 20px; background: transparent; border: none; color: #94a3b8; font-size: 22px; cursor: pointer;">&times;</button>
       
-      <h3 style="margin-top: 0; color: #f8fafc; font-size: 17px;">Reportar Pago con Captura</h3>
+      <h3 style="margin-top: 0; color: #f8fafc; font-size: 17px;">Reportar Pago - Elera Ventas</h3>
       <div style="background: #111827; padding: 12px; border-radius: 10px; text-align: center; margin-bottom: 15px; border: 1px solid #1e293b;">
         <p style="margin: 0; font-size: 11px; color: #94a3b8;">YAPE OFICIAL</p>
         <h3 style="margin: 5px 0; color: #c084fc; font-size: 20px;">969 061 421</h3>
@@ -111,7 +108,7 @@
         <input type="file" id="yape-foto" accept="image/*" style="width: 100%; padding: 8px; background: #111827; border: 1px solid #1e293b; color: #fff; border-radius: 8px; box-sizing: border-box; font-size: 12px;">
       </div>
 
-      <button onclick="enviarReporteYapeConFoto()" style="width: 100%; padding: 12px; background: #7d2ae8; color: #fff; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 14px;">Enviar Captura a Adán</button>
+      <button onclick="enviarReporteYapeConFoto()" style="width: 100%; padding: 12px; background: #7d2ae8; color: #fff; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 14px;">Enviar Captura a Elera Ventas</button>
     </div>
   </div>
 
@@ -132,22 +129,20 @@
     
     <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1e293b; padding-bottom: 12px; margin-bottom: 15px;">
       <div>
-        <span style="font-size: 11px; color: #3b82f6; font-weight: bold; display: block;">PANEL DE ADMINISTRADOR</span>
+        <span style="font-size: 11px; color: #3b82f6; font-weight: bold; display: block;">ELERA VENTAS - PANEL ADMIN</span>
         <h2 style="margin: 0; color: #f8fafc; font-size: 18px;">👑 Hola, Adán</h2>
       </div>
       <button onclick="cerrarSesion()" style="padding: 8px 12px; background: #ef4444; color: #fff; border: none; border-radius: 6px; font-size: 11px; font-weight: bold; cursor: pointer;">Cerrar Sesión</button>
     </div>
 
-    <!-- SECCIÓN 1: Capturas de Yape enviadas por clientes -->
-    <h3 style="font-size: 13px; color: #c084fc; text-transform: uppercase; margin-bottom: 10px;">📸 Capturas de Yape Pendientes de Verificación</h3>
+    <h3 style="font-size: 13px; color: #c084fc; text-transform: uppercase; margin-bottom: 10px;">📸 Capturas de Yape Pendientes</h3>
     <div id="admin-lista-yapes" style="display: flex; flex-direction: column; gap: 8px; max-height: 250px; overflow-y: auto; margin-bottom: 20px;">
       <p style="font-size: 12px; color: #64748b; text-align: center;">No hay capturas pendientes.</p>
     </div>
 
-    <!-- SECCIÓN 2: Pedidos de diamantes -->
-    <h3 style="font-size: 13px; color: #38bdf8; text-transform: uppercase; margin-bottom: 10px;">📦 Pedidos de Diamantes (Para entregar en el juego)</h3>
+    <h3 style="font-size: 13px; color: #38bdf8; text-transform: uppercase; margin-bottom: 10px;">📦 Pedidos de Diamantes</h3>
     <div id="admin-lista-pedidos" style="display: flex; flex-direction: column; gap: 8px; max-height: 250px; overflow-y: auto;">
-      <p style="font-size: 12px; color: #64748b; text-align: center;">No hay pedidos de diamantes registrados.</p>
+      <p style="font-size: 12px; color: #64748b; text-align: center;">No hay pedidos registrados.</p>
     </div>
 
   </div>
@@ -162,7 +157,6 @@
     let precioSeleccionado = 0;
     let idVerificado = false;
 
-    // Tu correo de Administrador
     const CORREO_ADMIN = "adan@admin.com"; 
 
     window.onload = function() {
@@ -179,7 +173,7 @@
       const btnCambiar = document.getElementById('btn-cambiar-modo');
 
       if (esRegistro) {
-        titulo.innerText = "Crea una nueva cuenta";
+        titulo.innerText = "Crea tu cuenta en Elera Ventas";
         btnAccion.innerText = "Registrarse";
         btnCambiar.innerText = "¿Ya tienes cuenta? Inicia sesión";
       } else {
@@ -216,7 +210,7 @@
         }
 
         if (!usuarios[email] || usuarios[email].password !== pass) {
-          alert("Correo o contraseña incorrectos.");
+          alert("Correo o contraseña incorrectos. Si eres nuevo, regístrate primero.");
           return;
         }
 
@@ -247,7 +241,6 @@
       document.getElementById('vista-auth').style.display = 'block';
     }
 
-    // --- MODAL DE RECARGA DE SALDO CON FOTO ---
     function abrirModalRecargaSaldo() {
       document.getElementById('modal-recarga').style.display = 'flex';
     }
@@ -265,7 +258,7 @@
         return;
       }
       if (inputFoto.files.length === 0) {
-        alert("Por favor selecciona o toma una foto del voucher de Yape.");
+        alert("Por favor selecciona o toma una foto del voucher.");
         return;
       }
 
@@ -273,7 +266,7 @@
       const lector = new FileReader();
 
       lector.onload = function(e) {
-        const imagenBase64 = e.target.result; // Convierte la foto en código seguro para la web
+        const imagenBase64 = e.target.result;
 
         let yapeAdmin = JSON.parse(localStorage.getItem('db_yapes_admin')) || [];
         const nuevoReporte = {
@@ -287,7 +280,6 @@
         yapeAdmin.push(nuevoReporte);
         localStorage.setItem('db_yapes_admin', JSON.stringify(yapeAdmin));
 
-        // Guardar en el historial personal del cliente
         let usuarios = JSON.parse(localStorage.getItem('db_usuarios')) || {};
         usuarios[email].historial.push({
           id: nuevoReporte.id,
@@ -301,13 +293,12 @@
         document.getElementById('yape-monto').value = '';
         inputFoto.value = '';
         actualizarInterfazCliente();
-        alert("¡Captura enviada con éxito! Adán revisará tu voucher y te sumará el saldo en breve.");
+        alert("¡Captura enviada con éxito a Elera Ventas!");
       };
 
       lector.readAsDataURL(archivo);
     }
 
-    // --- CLIENTE: COMPRAR DIAMANTES ---
     function verificarID() {
       const playerId = document.getElementById('player-id').value.trim();
       const divRes = document.getElementById('resultado-verificacion');
@@ -349,7 +340,7 @@
       let user = usuarios[email];
 
       if (user.saldo < precioSeleccionado) {
-        alert("Saldo insuficiente en tu billetera. Recarga saldo primero enviando tu captura.");
+        alert("Saldo insuficiente en tu billetera. Recarga enviando tu captura.");
         return;
       }
 
@@ -382,4 +373,17 @@
       idVerificado = false;
 
       actualizarInterfazCliente();
-      alert("¡Compra realizada con éxito! Tu recarga de diamantes e
+      alert("¡Compra realizada con éxito!");
+    }
+
+    function actualizarInterfazCliente() {
+      const email = localStorage.getItem('usuarioActual');
+      let usuarios = JSON.parse(localStorage.getItem('db_usuarios')) || {};
+      let user = usuarios[email];
+      if (!user) return;
+
+      document.getElementById('lbl-saldo').innerText = `S/ ${user.saldo.toFixed(2)}`;
+
+      const contenedor = document.getElementById('lista-historial');
+      if (user.historial.length === 0) {
+        contenedor.innerHTML = `<p style="font-size: 12px; color: #64748b; text-align: center;">No hay registros recien
