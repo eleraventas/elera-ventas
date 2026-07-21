@@ -253,6 +253,153 @@ const firebaseConfig = {
         function openModal(id) { document.getElementById(id).style.display = 'flex'; }
         function closeModal(id) { document.getElementById(id).style.display = 'none'; }
     </script>
+<!-- ========================================== -->
+<!-- INICIO DE MÓDULO DE RECARGA DE SALDO (3 PASOS) -->
+<!-- ========================================== -->
+<div class="recharge-container" style="max-width: 450px; margin: 30px auto; background: #1a1a1a; color: #fff; padding: 25px; border-radius: 12px; font-family: sans-serif; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+  
+  <!-- Indicador de Pasos -->
+  <div style="display: flex; justify-content: space-around; text-align: center; margin-bottom: 20px; border-bottom: 1px solid #333; padding-bottom: 15px;">
+    <div>
+      <span id="step1-badge" style="background: #ff7b00; color: #fff; padding: 6px 12px; border-radius: 50%; font-weight: bold;">1</span>
+      <p style="font-size: 12px; margin-top: 5px; color: #ccc;">Monto</p>
+    </div>
+    <div>
+      <span id="step2-badge" style="background: #444; color: #ccc; padding: 6px 12px; border-radius: 50%; font-weight: bold;">2</span>
+      <p style="font-size: 12px; margin-top: 5px; color: #ccc;">Comprobante</p>
+    </div>
+    <div>
+      <span id="step3-badge" style="background: #444; color: #ccc; padding: 6px 12px; border-radius: 50%; font-weight: bold;">3</span>
+      <p style="font-size: 12px; margin-top: 5px; color: #ccc;">Confirmar</p>
+    </div>
+  </div>
+
+  <!-- PASO 1: MONTO -->
+  <div id="step-1">
+    <h3 style="margin-top: 0; color: #fff;">¿Cuánto vas a recargar?</h3>
+    <p style="font-size: 13px; color: #aaa;">Escribe el monto que deseas recargar (Mínimo S/ 5)</p>
+    
+    <div style="position: relative; margin: 15px 0;">
+      <span style="position: absolute; left: 15px; top: 12px; font-weight: bold; font-size: 18px; color: #ff7b00;">S/</span>
+      <input type="number" id="recharge-amount" min="5" value="5.00" style="width: 100%; padding: 12px 12px 12px 45px; font-size: 18px; border-radius: 8px; border: 1px solid #444; background: #2a2a2a; color: #fff; box-sizing: border-box;">
+    </div>
+    
+    <div style="background: #2b1f1d; border-left: 4px solid #ff4d4d; padding: 12px; border-radius: 6px; font-size: 12px; color: #ffcccc; margin-bottom: 15px; line-height: 1.5;">
+      <b>⚠️ IMPORTANTE - LEE ANTES DE DEPOSITAR:</b><br>
+      • El monto mínimo de recarga es <b>S/ 5.00</b>.<br>
+      • El comprobante debe ser legible y mostrar número de operación, monto y fecha.<br>
+      • Comprobantes editados o duplicados serán rechazados.
+    </div>
+
+    <button type="button" onclick="goToStep2()" style="width: 100%; padding: 12px; background: #ff7b00; color: #fff; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 16px;">Siguiente</button>
+  </div>
+
+  <!-- PASO 2: COMPROBANTE Y DATOS YAPE -->
+  <div id="step-2" style="display: none;">
+    <h3 style="margin-top: 0; color: #fff;">Yapea este monto</h3>
+    <p style="font-size: 13px; color: #aaa;">Escanea el QR o yapea al número</p>
+
+    <!-- Caja de Datos de Yape -->
+    <div style="background: #262626; padding: 15px; border-radius: 10px; text-align: center; margin-bottom: 15px;">
+      <p style="margin: 0; font-size: 12px; color: #888;">NÚMERO YAPE</p>
+      <h2 style="margin: 5px 0; color: #7d2ae8; font-size: 24px; font-weight: bold;">969 061 421</h2>
+      <p style="margin: 0; font-size: 13px; color: #ff7b00; font-weight: bold;">A nombre de ADAN - ELERA PENA</p>
+      
+      <div style="margin-top: 15px;">
+        <img src="qr-yape.png" alt="QR Yape" style="width: 180px; border-radius: 10px; border: 3px solid #7d2ae8;">
+      </div>
+    </div>
+
+    <label style="display: block; font-size: 13px; margin-bottom: 5px; color: #ccc;">Sube tu comprobante de pago:</label>
+    <input type="file" id="recharge-proof" accept="image/*" style="width: 100%; padding: 10px; background: #2a2a2a; border-radius: 6px; color: #fff; margin-bottom: 15px; box-sizing: border-box;">
+
+    <div style="display: flex; gap: 10px;">
+      <button type="button" onclick="goToStep1()" style="flex: 1; padding: 10px; background: #444; color: #fff; border: none; border-radius: 8px; cursor: pointer;">Volver</button>
+      <button type="button" onclick="submitRecharge()" style="flex: 2; padding: 10px; background: #ff7b00; color: #fff; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Continuar</button>
+    </div>
+  </div>
+
+  <!-- PASO 3: CONFIRMACIÓN -->
+  <div id="step-3" style="display: none; text-align: center; padding: 20px 0;">
+    <h2 style="color: #4ef072; margin-top: 0;">¡Solicitud Enviada! 🎉</h2>
+    <p style="font-size: 14px; color: #ccc;">Tu recarga de <b>S/ <span id="summary-amount">0.00</span></b> ha sido registrada.</p>
+    <p style="font-size: 12px; color: #aaa;">En unos minutos verificaremos tu comprobante y se acreditará el saldo a tu cuenta.</p>
+    <button type="button" onclick="resetRechargeForm()" style="margin-top: 15px; padding: 10px 20px; background: #ff7b00; color: #fff; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Entendido</button>
+  </div>
+
+</div>
+
+<!-- Funciones del módulo de recarga -->
+<script>
+function goToStep2() {
+  const amountInput = document.getElementById('recharge-amount');
+  const amount = parseFloat(amountInput.value);
+  if (isNaN(amount) || amount < 5) {
+    alert("El monto mínimo de recarga es S/ 5.00");
+    return;
+  }
+  
+  document.getElementById('step-1').style.display = 'none';
+  document.getElementById('step-2').style.display = 'block';
+  document.getElementById('step2-badge').style.background = '#ff7b00';
+  document.getElementById('step2-badge').style.color = '#fff';
+}
+
+function goToStep1() {
+  document.getElementById('step-2').style.display = 'none';
+  document.getElementById('step-1').style.display = 'block';
+  document.getElementById('step2-badge').style.background = '#444';
+  document.getElementById('step2-badge').style.color = '#ccc';
+}
+
+function submitRecharge() {
+  const amount = document.getElementById('recharge-amount').value;
+  const proofInput = document.getElementById('recharge-proof');
+
+  if (proofInput.files.length === 0) {
+    alert("Por favor, sube una foto de tu comprobante de pago.");
+    return;
+  }
+
+  // Verificar sesión y guardar en Firebase
+  if (firebase.auth().currentUser) {
+    const userEmail = firebase.auth().currentUser.email;
+    const newRechargeRef = firebase.database().ref('solicitudes_recarga').push();
+    
+    newRechargeRef.set({
+      usuario: userEmail,
+      monto: parseFloat(amount),
+      metodo: 'Yape',
+      estado: 'pendiente',
+      fecha: new Date().toLocaleString()
+    }).then(() => {
+      document.getElementById('summary-amount').innerText = amount;
+      document.getElementById('step-2').style.display = 'none';
+      document.getElementById('step-3').style.display = 'block';
+      document.getElementById('step3-badge').style.background = '#ff7b00';
+      document.getElementById('step3-badge').style.color = '#fff';
+    }).catch(error => {
+      alert("Error al enviar la solicitud: " + error.message);
+    });
+  } else {
+    alert("Debes iniciar sesión para recargar saldo.");
+  }
+}
+
+function resetRechargeForm() {
+  document.getElementById('step-3').style.display = 'none';
+  document.getElementById('step-1').style.display = 'block';
+  document.getElementById('recharge-amount').value = '5.00';
+  document.getElementById('recharge-proof').value = '';
+  document.getElementById('step2-badge').style.background = '#444';
+  document.getElementById('step2-badge').style.color = '#ccc';
+  document.getElementById('step3-badge').style.background = '#444';
+  document.getElementById('step3-badge').style.color = '#ccc';
+}
+</script>
+<!-- ========================================== -->
+<!-- FIN DE MÓDULO DE RECARGA DE SALDO -->
+<!-- ========================================== -->
 </body>
 </html>
 
