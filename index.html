@@ -400,6 +400,218 @@ function resetRechargeForm() {
 <!-- ========================================== -->
 <!-- FIN DE MÓDULO DE RECARGA DE SALDO -->
 <!-- ========================================== -->
+ <!-- VENTANA EMERGENTE (MODAL) DE RECARGA DE SALDO (CON PREXPE ACTUALIZADO) -->
+<div id="modal-recarga" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 9999; justify-content: center; align-items: center; overflow-y: auto;">
+  
+  <div style="max-width: 450px; width: 90%; background: #0b0f19; color: #fff; padding: 25px; border-radius: 16px; font-family: sans-serif; position: relative; margin: 20px auto; box-shadow: 0 4px 20px rgba(0,0,0,0.6); border: 1px solid #1e293b;">
+    
+    <!-- Botón para cerrar (X) -->
+    <button onclick="cerrarModalRecarga()" style="position: absolute; top: 15px; right: 20px; background: transparent; border: none; color: #94a3b8; font-size: 24px; cursor: pointer;">&times;</button>
+
+    <!-- Indicador de Pasos -->
+    <div style="display: flex; justify-content: space-around; text-align: center; margin-bottom: 20px; border-bottom: 1px solid #1e293b; padding-bottom: 15px;">
+      <div>
+        <span id="step1-badge" style="background: #2563eb; color: #fff; padding: 6px 12px; border-radius: 50%; font-weight: bold; font-size: 13px;">1</span>
+        <p style="font-size: 11px; margin-top: 5px; color: #94a3b8;">Monto</p>
+      </div>
+      <div>
+        <span id="step2-badge" style="background: #1e293b; color: #64748b; padding: 6px 12px; border-radius: 50%; font-weight: bold; font-size: 13px;">2</span>
+        <p style="font-size: 11px; margin-top: 5px; color: #64748b;">Comprobante</p>
+      </div>
+      <div>
+        <span id="step3-badge" style="background: #1e293b; color: #64748b; padding: 6px 12px; border-radius: 50%; font-weight: bold; font-size: 13px;">3</span>
+        <p style="font-size: 11px; margin-top: 5px; color: #64748b;">Confirmar</p>
+      </div>
+    </div>
+
+    <!-- PASO 1: MONTO -->
+    <div id="step-1">
+      <h3 style="margin-top: 0; color: #f8fafc; font-size: 18px;">¿Cuánto vas a recargar?</h3>
+      <p style="font-size: 12px; color: #94a3b8;">Escribe el monto que deseas recargar (Mínimo S/ 5)</p>
+      
+      <div style="position: relative; margin: 15px 0;">
+        <span style="position: absolute; left: 15px; top: 14px; font-weight: bold; font-size: 16px; color: #38bdf8;">S/</span>
+        <input type="number" id="recharge-amount" min="5" value="5.00" style="width: 100%; padding: 12px 12px 12px 42px; font-size: 18px; border-radius: 10px; border: 1px solid #1e293b; background: #111827; color: #fff; box-sizing: border-box; outline: none;">
+      </div>
+      
+      <div style="background: rgba(239, 68, 68, 0.1); border-left: 4px solid #ef4444; padding: 12px; border-radius: 8px; font-size: 11px; color: #fca5a5; margin-bottom: 20px; line-height: 1.5; text-align: left;">
+        <b>⚠️ IMPORTANTE - LEE ANTES DE DEPOSITAR:</b><br>
+        • El monto mínimo de recarga es <b>S/ 5.00</b>.<br>
+        • El comprobante debe mostrar número de operación, monto y fecha de forma clara.<br>
+        • Comprobantes editados o duplicados serán rechazados automáticamente.
+      </div>
+
+      <button type="button" onclick="goToStep2()" style="width: 100%; padding: 14px; background: linear-gradient(90deg, #2563eb 0%, #1d4ed8 100%); color: #fff; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 15px; box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);">Siguiente</button>
+    </div>
+
+    <!-- PASO 2: MÉTODOS DE PAGO Y COMPROBANTE -->
+    <div id="step-2" style="display: none;">
+      <h3 style="margin-top: 0; color: #f8fafc; font-size: 18px;">Selecciona método de pago</h3>
+      <p style="font-size: 12px; color: #94a3b8;">Elige por dónde deseas transferir o yapear</p>
+
+      <!-- Pestañas de métodos -->
+      <div style="display: flex; gap: 6px; margin-bottom: 15px;">
+        <button type="button" onclick="cambiarMetodo('yape')" id="btn-yape" style="flex: 1; padding: 10px 4px; background: #7d2ae8; color: #fff; border: none; border-radius: 8px; font-weight: bold; font-size: 12px; cursor: pointer;">Yape</button>
+        <button type="button" onclick="cambiarMetodo('banco')" id="btn-banco" style="flex: 1; padding: 10px 4px; background: #1e293b; color: #94a3b8; border: none; border-radius: 8px; font-weight: bold; font-size: 12px; cursor: pointer;">Banco</button>
+        <button type="button" onclick="cambiarMetodo('prexpe')" id="btn-prexpe" style="flex: 1; padding: 10px 4px; background: #1e293b; color: #94a3b8; border: none; border-radius: 8px; font-weight: bold; font-size: 12px; cursor: pointer;">Prexpe</button>
+      </div>
+
+      <!-- CONTENIDO YAPE -->
+      <div id="info-yape" class="metodo-info" style="background: #111827; border: 1px solid #1e293b; padding: 15px; border-radius: 12px; text-align: center; margin-bottom: 15px;">
+        <p style="margin: 0; font-size: 11px; color: #94a3b8; font-weight: bold;">NÚMERO YAPE</p>
+        <h2 style="margin: 5px 0; color: #c084fc; font-size: 22px; font-weight: bold;">969 061 421</h2>
+        <p style="margin: 0; font-size: 12px; color: #38bdf8; font-weight: bold;">A nombre de ADAN - ELERA PENA</p>
+        <div style="margin-top: 10px;">
+          <img src="qr-yape.png" alt="QR Yape" style="width: 140px; border-radius: 8px; border: 2px solid #7d2ae8;">
+        </div>
+      </div>
+
+      <!-- CONTENIDO BANCO -->
+      <div id="info-banco" class="metodo-info" style="display: none; background: #111827; border: 1px solid #1e293b; padding: 15px; border-radius: 12px; text-align: left; margin-bottom: 15px; font-size: 12px;">
+        <p style="margin: 0 0 4px 0; color: #38bdf8; font-weight: bold;">CUENTA BCP (Soles):</p>
+        <p style="margin: 0 0 10px 0; color: #fff; font-family: monospace; font-size: 14px;">193-XXXXXXXX-0-XX</p>
+        <p style="margin: 0 0 4px 0; color: #38bdf8; font-weight: bold;">CCI (Interbancario):</p>
+        <p style="margin: 0; color: #fff; font-family: monospace; font-size: 12px;">002-193-XXXXXXXXXXXX-XX</p>
+        <p style="margin: 10px 0 0 0; color: #94a3b8; font-size: 11px;">Titular: Adan Elera Pena</p>
+      </div>
+
+      <!-- CONTENIDO PREXPE (ACTUALIZADO) -->
+      <div id="info-prexpe" class="metodo-info" style="display: none; background: #111827; border: 1px solid #1e293b; padding: 15px; border-radius: 12px; text-align: center; margin-bottom: 15px; font-size: 12px;">
+        <p style="margin: 0; font-size: 11px; color: #94a3b8; font-weight: bold;">NÚMERO PREXPE</p>
+        <h2 style="margin: 5px 0; color: #a855f7; font-size: 22px; font-weight: bold;">938 780 796</h2>
+        <p style="margin: 0; font-size: 12px; color: #38bdf8; font-weight: bold;">Titular: ADÁN ELERA PEÑA</p>
+        <p style="color: #94a3b8; font-size: 11px; margin-top: 8px;">Realiza tu transferencia desde Prexpe y adjunta tu comprobante.</p>
+      </div>
+
+      <label style="display: block; font-size: 12px; margin-bottom: 6px; color: #94a3b8; text-align: left; font-weight: bold;">Sube tu comprobante de pago:</label>
+      <input type="file" id="recharge-proof" accept="image/*" style="width: 100%; padding: 10px; background: #111827; border: 1px solid #1e293b; border-radius: 8px; color: #fff; margin-bottom: 15px; box-sizing: border-box; font-size: 12px;">
+
+      <div style="display: flex; gap: 10px;">
+        <button type="button" onclick="goToStep1()" style="flex: 1; padding: 12px; background: #1e293b; color: #94a3b8; border: none; border-radius: 10px; cursor: pointer; font-weight: bold;">Volver</button>
+        <button type="button" onclick="submitRecharge()" style="flex: 2; padding: 12px; background: linear-gradient(90deg, #2563eb 0%, #1d4ed8 100%); color: #fff; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);">Continuar</button>
+      </div>
+    </div>
+
+    <!-- PASO 3: CONFIRMACIÓN -->
+    <div id="step-3" style="display: none; text-align: center; padding: 20px 0;">
+      <div style="font-size: 40px; margin-bottom: 10px;">🎉</div>
+      <h2 style="color: #38bdf8; margin-top: 0; font-size: 20px;">¡Solicitud Enviada!</h2>
+      <p style="font-size: 13px; color: #94a3b8;">Tu recarga de <b>S/ <span id="summary-amount">0.00</span></b> ha sido registrada correctamente.</p>
+      <p style="font-size: 11px; color: #64748b; margin-bottom: 20px;">En unos minutos verificaremos tu comprobante y se acreditará el saldo a tu cuenta.</p>
+      <button type="button" onclick="cerrarModalRecarga()" style="padding: 12px 25px; background: linear-gradient(90deg, #2563eb 0%, #1d4ed8 100%); color: #fff; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);">Entendido</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- LÓGICA Y FUNCIONES DE RECARGA -->
+<script>
+let metodoSeleccionado = 'Yape';
+
+function abrirModalRecarga() {
+  document.getElementById('modal-recarga').style.display = 'flex';
+}
+
+function cerrarModalRecarga() {
+  document.getElementById('modal-recarga').style.display = 'none';
+  resetRechargeForm();
+}
+
+function cambiarMetodo(metodo) {
+  document.querySelectorAll('.metodo-info').forEach(el => el.style.display = 'none');
+  
+  document.getElementById('btn-yape').style.background = '#1e293b';
+  document.getElementById('btn-yape').style.color = '#94a3b8';
+  document.getElementById('btn-banco').style.background = '#1e293b';
+  document.getElementById('btn-banco').style.color = '#94a3b8';
+  document.getElementById('btn-prexpe').style.background = '#1e293b';
+  document.getElementById('btn-prexpe').style.color = '#94a3b8';
+
+  if (metodo === 'yape') {
+    document.getElementById('info-yape').style.display = 'block';
+    document.getElementById('btn-yape').style.background = '#7d2ae8';
+    document.getElementById('btn-yape').style.color = '#fff';
+    metodoSeleccionado = 'Yape';
+  } else if (metodo === 'banco') {
+    document.getElementById('info-banco').style.display = 'block';
+    document.getElementById('btn-banco').style.background = '#2563eb';
+    document.getElementById('btn-banco').style.color = '#fff';
+    metodoSeleccionado = 'Transferencia Bancaria';
+  } else if (metodo === 'prexpe') {
+    document.getElementById('info-prexpe').style.display = 'block';
+    document.getElementById('btn-prexpe').style.background = '#9333ea';
+    document.getElementById('btn-prexpe').style.color = '#fff';
+    metodoSeleccionado = 'Prexpe';
+  }
+}
+
+function goToStep2() {
+  const amountInput = document.getElementById('recharge-amount');
+  const amount = parseFloat(amountInput.value);
+  if (isNaN(amount) || amount < 5) {
+    alert("El monto mínimo de recarga es S/ 5.00");
+    return;
+  }
+  
+  document.getElementById('step-1').style.display = 'none';
+  document.getElementById('step-2').style.display = 'block';
+  document.getElementById('step2-badge').style.background = '#2563eb';
+  document.getElementById('step2-badge').style.color = '#fff';
+}
+
+function goToStep1() {
+  document.getElementById('step-2').style.display = 'none';
+  document.getElementById('step-1').style.display = 'block';
+  document.getElementById('step2-badge').style.background = '#1e293b';
+  document.getElementById('step2-badge').style.color = '#64748b';
+}
+
+function submitRecharge() {
+  const amount = document.getElementById('recharge-amount').value;
+  const proofInput = document.getElementById('recharge-proof');
+
+  if (proofInput.files.length === 0) {
+    alert("Por favor, sube una foto de tu comprobante de pago.");
+    return;
+  }
+
+  if (firebase.auth().currentUser) {
+    const userEmail = firebase.auth().currentUser.email;
+    const newRechargeRef = firebase.database().ref('solicitudes_recarga').push();
+    
+    newRechargeRef.set({
+      usuario: userEmail,
+      monto: parseFloat(amount),
+      metodo: metodoSeleccionado,
+      estado: 'pendiente',
+      fecha: new Date().toLocaleString()
+    }).then(() => {
+      document.getElementById('summary-amount').innerText = amount;
+      document.getElementById('step-2').style.display = 'none';
+      document.getElementById('step-3').style.display = 'block';
+      document.getElementById('step3-badge').style.background = '#2563eb';
+      document.getElementById('step3-badge').style.color = '#fff';
+    }).catch(error => {
+      alert("Error al enviar la solicitud: " + error.message);
+    });
+  } else {
+    alert("Debes iniciar sesión para recargar saldo.");
+  }
+}
+
+function resetRechargeForm() {
+  document.getElementById('step-3').style.display = 'none';
+  document.getElementById('step-2').style.display = 'none';
+  document.getElementById('step-1').style.display = 'block';
+  document.getElementById('recharge-amount').value = '5.00';
+  document.getElementById('recharge-proof').value = '';
+  document.getElementById('step2-badge').style.background = '#1e293b';
+  document.getElementById('step2-badge').style.color = '#64748b';
+  document.getElementById('step3-badge').style.background = '#1e293b';
+  document.getElementById('step3-badge').style.color = '#64748b';
+  cambiarMetodo('yape');
+}
+</script>   
 </body>
 </html>
 
