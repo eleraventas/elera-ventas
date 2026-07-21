@@ -1,257 +1,389 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ventas Elera | Recargas Pro</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
-        body { background-color: #070a14; color: #ffffff; display: flex; flex-direction: column; align-items: center; min-height: 100vh; padding-bottom: 30px; }
-        .top-banner { width: 100%; background: linear-gradient(90deg, #06b6d4, #3b82f6); color: #ffffff; font-size: 11px; font-weight: 700; padding: 6px 10px; text-align: center; }
-        nav { width: 100%; max-width: 500px; display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; }
-        .logo-text { font-weight: 800; font-size: 18px; background: linear-gradient(90deg, #06b6d4, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .btn-auth { background: #06b6d4; color: #000; border: none; padding: 7px 12px; border-radius: 8px; font-weight: 700; font-size: 12px; cursor: pointer; }
-        .container { max-width: 500px; width: 100%; padding: 0 20px; text-align: center; }
-        
-        /* BOTÓN DE CANAL DE WHATSAPP */
-        .community-box { display: flex; margin-top: 10px; margin-bottom: 5px; }
-        .btn-community { width: 100%; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 6px; padding: 10px; border-radius: 10px; font-size: 13px; font-weight: 700; color: #fff; transition: 0.2s; }
-        .btn-channel { background: #0088cc; }
-
-        /* BILLETERA */
-        .wallet-box { background: #0f172a; border: 1px solid #1e293b; border-radius: 14px; padding: 15px; margin: 15px 0; text-align: left; display: flex; justify-content: space-between; align-items: center; }
-        .wallet-amount { font-size: 20px; font-weight: 800; color: #4ade80; }
-        .btn-add { background: #a855f7; color: #fff; border: none; padding: 8px 14px; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 12px; }
-
-        /* GRID PRECIOS */
-        .grid-prices { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
-        .card-price { background: #0f172a; border: 1px solid #1e293b; border-radius: 12px; padding: 12px; text-align: center; }
-        .diamonds-amount { font-size: 14px; font-weight: 700; color: #fff; }
-        .diamonds-price { font-size: 16px; font-weight: 800; color: #06b6d4; margin: 5px 0; }
-        .btn-buy { width: 100%; background: #06b6d4; color: #000; border: none; padding: 6px; border-radius: 6px; font-weight: 700; font-size: 11px; cursor: pointer; }
-        
-        /* MODALES */
-        .modal { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); justify-content:center; align-items:center; z-index:1000; }
-        .modal-content { background:#0f172a; padding:20px; border-radius:14px; width:90%; max-width:400px; border:1px solid #334155; }
-        input { width:100%; padding:10px; margin:8px 0; border-radius:8px; border:1px solid #334155; background:#1e293b; color:#fff; }
-        
-        /* ADMIN PANEL */
-        .admin-panel { display: none; background: #1e1b4b; border: 1px solid #6366f1; border-radius: 14px; padding: 15px; margin-top: 20px; text-align: left; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Elera Ventas - Tienda</title>
 </head>
-<body>
+<body style="background: #060913; margin: 0; padding: 0; font-family: sans-serif; color: #fff;">
 
-    <div class="top-banner">🚀 RECARGAS POR ID — ELERA VENTAS</div>
-
-    <nav>
-        <div class="logo-text">ELERA RECARGAS</div>
-        <button class="btn-auth" id="authBtn" onclick="openModal('authModal')">Ingresar</button>
-    </nav>
-
-    <div class="container">
-
-        <!-- BOTÓN EXCLUSIVO AL CANAL DE WHATSAPP -->
-        <div class="community-box">
-            <a href="https://whatsapp.com/channel/0029VbCnNEMGpLHPhMOzAO01" target="_blank" class="btn-community btn-channel">
-                📢 Unirse a nuestro Canal de WhatsApp
-            </a>
-        </div>
-
-        <!-- BILLETERA -->
-        <div class="wallet-box">
-            <div>
-                <div style="font-size: 11px; color: #94a3b8;">Mi Saldo Disponible</div>
-                <div class="wallet-amount" id="userBalance">S/ 0.00</div>
-            </div>
-            <button class="btn-add" onclick="openModal('rechargeModal')">➕ Recargar Saldo</button>
-        </div>
-
-        <h3 style="text-align: left; font-size: 15px; margin-top: 15px; color: #06b6d4;">💎 Catálogo de Diamantes</h3>
-
-        <!-- OFERTAS DE DIAMANTES -->
-        <div class="grid-prices">
-            <div class="card-price">
-                <div class="diamonds-amount">💎 100 Diamantes</div>
-                <div class="diamonds-price">S/ 2.90</div>
-                <button class="btn-buy" onclick="buyItem('100 Diamantes', 2.90)">Comprar</button>
-            </div>
-            <div class="card-price">
-                <div class="diamonds-amount">💎 341 Diamantes</div>
-                <div class="diamonds-price">S/ 8.50</div>
-                <button class="btn-buy" onclick="buyItem('341 Diamantes', 8.50)">Comprar</button>
-            </div>
-            <div class="card-price">
-                <div class="diamonds-amount">💎 572 Diamantes</div>
-                <div class="diamonds-price">S/ 12.50</div>
-                <button class="btn-buy" onclick="buyItem('572 Diamantes', 12.50)">Comprar</button>
-            </div>
-            <div class="card-price">
-                <div class="diamonds-amount">💎 1,166 Diamantes</div>
-                <div class="diamonds-price">S/ 25.00</div>
-                <button class="btn-buy" onclick="buyItem('1,166 Diamantes', 25.00)">Comprar</button>
-            </div>
-            <div class="card-price">
-                <div class="diamonds-amount">💎 2,398 Diamantes</div>
-                <div class="diamonds-price">S/ 45.00</div>
-                <button class="btn-buy" onclick="buyItem('2,398 Diamantes', 45.00)">Comprar</button>
-            </div>
-            <div class="card-price">
-                <div class="diamonds-amount">💎 6,160 Diamantes</div>
-                <div class="diamonds-price">S/ 107.00</div>
-                <button class="btn-buy" onclick="buyItem('6,160 Diamantes', 107.00)">Comprar</button>
-            </div>
-        </div>
-
-        <!-- PANEL DE ADMIN -->
-        <div class="admin-panel" id="adminPanel">
-            <h4 style="color: #a855f7;">🛠️ Panel Administrador</h4>
-            <p style="font-size: 11px; color: #cbd5e1; margin-bottom: 10px;">Carga saldo a tus clientes:</p>
-            <input type="text" id="adminUserEmail" placeholder="Correo exacto del cliente">
-            <input type="number" id="adminAmount" placeholder="Monto en Soles (Ej: 20)">
-            <button class="btn-add" style="width: 100%; margin-top: 5px;" onclick="addBalanceAdmin()">Aprobar y Sumar Saldo</button>
-        </div>
+  <!-- ========================================== -->
+  <!-- 1. VISTA DE AUTENTICACIÓN (LOGIN / REGISTRO) -->
+  <!-- ========================================== -->
+  <div id="vista-auth" style="max-width: 400px; margin: 50px auto; background: #0b0f19; padding: 25px; border-radius: 16px; border: 1px solid #1e293b; box-sizing: border-box;">
+    <div style="text-align: center; margin-bottom: 20px;">
+      <h2 style="margin: 0; color: #f8fafc; font-size: 22px;">💎 ELERA VENTAS 💎</h2>
+      <p id="auth-titulo" style="font-size: 13px; color: #94a3b8; margin-top: 5px;">Inicia sesión con tu cuenta</p>
     </div>
 
-    <!-- MODAL DE ACCESO -->
-    <div class="modal" id="authModal">
-        <div class="modal-content">
-            <h3>Iniciar Sesión / Registro</h3>
-            <input type="email" id="email" placeholder="Correo electrónico">
-            <input type="password" id="password" placeholder="Contraseña">
-            <button class="btn-add" style="width:100%; margin-top:10px;" onclick="login()">Ingresar</button>
-            <button class="btn-buy" style="width:100%; margin-top:5px;" onclick="register()">Registrarse</button>
-            <button onclick="closeModal('authModal')" style="background:none; border:none; color:#94a3b8; margin-top:10px; cursor:pointer; width:100%;">Cerrar</button>
-        </div>
+    <div style="margin-bottom: 15px;">
+      <label style="display: block; font-size: 12px; color: #94a3b8; font-weight: bold; margin-bottom: 5px;">Correo electrónico</label>
+      <input type="email" id="auth-email" placeholder="tucorreo@gmail.com" style="width: 100%; padding: 12px; font-size: 14px; border-radius: 8px; border: 1px solid #1e293b; background: #111827; color: #fff; box-sizing: border-box; outline: none;">
     </div>
 
-    <!-- MODAL DE RECARGA DE SALDO -->
-    <div class="modal" id="rechargeModal">
-        <div class="modal-content">
-            <h3>Cargar Saldo a tu Billetera</h3>
-            <p style="font-size: 12px; color: #94a3b8; margin: 8px 0;">Yapea/Prex al <strong>943484217</strong> e ingresa los datos:</p>
-            <input type="number" id="payAmount" placeholder="Monto depositado (S/)">
-            <input type="text" id="payOp" placeholder="N° de Operación">
-            <button class="btn-add" style="width:100%; margin-top:10px;" onclick="requestDeposit()">Enviar Reporte</button>
-            <button onclick="closeModal('rechargeModal')" style="background:none; border:none; color:#94a3b8; margin-top:10px; cursor:pointer; width:100%;">Cancelar</button>
-        </div>
+    <div style="margin-bottom: 20px;">
+      <label style="display: block; font-size: 12px; color: #94a3b8; font-weight: bold; margin-bottom: 5px;">Contraseña</label>
+      <input type="password" id="auth-password" placeholder="••••••••" style="width: 100%; padding: 12px; font-size: 14px; border-radius: 8px; border: 1px solid #1e293b; background: #111827; color: #fff; box-sizing: border-box; outline: none;">
     </div>
 
-    <!-- FIREBASE SDKs -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    <button type="button" id="btn-accion-auth" onclick="procesarAuth()" style="width: 100%; padding: 14px; background: #2563eb; color: #fff; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 15px; margin-bottom: 10px;">Iniciar Sesión</button>
+    <button type="button" id="btn-cambiar-modo" onclick="cambiarModoAuth()" style="width: 100%; padding: 10px; background: transparent; color: #38bdf8; border: none; font-size: 12px; cursor: pointer;">¿No tienes cuenta? Regístrate aquí</button>
+  </div>
 
-    <script>
-        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyCXCmK91rGT414l5Lkyxbjd77N44slYNTc",
-  authDomain: "elera-ventas.firebaseapp.com",
-  projectId: "elera-ventas",
-  storageBucket: "elera-ventas.firebasestorage.app",
-  messagingSenderId: "665318794843",
-  appId: "1:665318794843:web:5be6c5276958944fcdc17e",
-  measurementId: "G-Y4EJXC9BL2"
-};
- firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
-        const db = firebase.database();
 
-        let currentUser = null;
-        let currentBalance = 0;
+  <!-- ========================================== -->
+  <!-- 2. VISTA CLIENTE (TIENDA DE DIAMANTES) -->
+  <!-- ========================================== -->
+  <div id="vista-tienda" style="display: none; max-width: 500px; margin: 20px auto; background: #0b0f19; padding: 20px; border-radius: 16px; border: 1px solid #1e293b; box-sizing: border-box;">
+    
+    <div style="display: flex; justify-content: space-between; align-items: center; background: #111827; padding: 12px 15px; border-radius: 12px; border: 1px solid #1e293b; margin-bottom: 15px;">
+      <div>
+        <span style="font-size: 11px; color: #94a3b8; display: block;">Elera Ventas - Cliente</span>
+        <b id="lbl-user-email" style="font-size: 13px; color: #38bdf8;">usuario@mail.com</b>
+      </div>
+      <div style="text-align: right;">
+        <span style="font-size: 11px; color: #94a3b8; display: block;">Saldo en Billetera</span>
+        <b id="lbl-saldo" style="font-size: 16px; color: #34d399;">S/ 0.00</b>
+      </div>
+    </div>
 
-        auth.onAuthStateChanged(user => {
-            if (user) {
-                currentUser = user;
-                document.getElementById('authBtn').innerText = "Salir";
-                document.getElementById('authBtn').onclick = logout;
-                loadUserData();
-                if(user.email === "admin@elera.com") {
-                    document.getElementById('adminPanel').style.display = 'block';
-                }
-            } else {
-                currentUser = null;
-                document.getElementById('authBtn').innerText = "Ingresar";
-                document.getElementById('authBtn').onclick = () => openModal('authModal');
-                document.getElementById('userBalance').innerText = "S/ 0.00";
-                document.getElementById('adminPanel').style.display = 'none';
-            }
+    <button onclick="abrirModalRecargaSaldo()" style="width: 100%; padding: 12px; background: #7d2ae8; color: #fff; border: none; border-radius: 10px; font-size: 13px; font-weight: bold; cursor: pointer; margin-bottom: 20px;">📸 Yapear y Enviar Captura de Pago</button>
+
+    <div style="background: #111827; padding: 15px; border-radius: 12px; border: 1px solid #1e293b; margin-bottom: 20px;">
+      <label style="display: block; font-size: 12px; color: #94a3b8; font-weight: bold; margin-bottom: 8px;">Ingresa tu User ID de Free Fire</label>
+      <div style="display: flex; gap: 10px;">
+        <input type="text" id="player-id" placeholder="Ej. 14035130815" style="flex: 1; padding: 12px; font-size: 14px; border-radius: 8px; border: 1px solid #1e293b; background: #0b0f19; color: #fff; box-sizing: border-box; outline: none;">
+        <button type="button" onclick="verificarID()" style="background: #1d4ed8; color: #fff; border: none; padding: 0 18px; border-radius: 8px; font-weight: bold; font-size: 13px; cursor: pointer;">VERIFICAR</button>
+      </div>
+      <div id="resultado-verificacion" style="display: none; margin-top: 10px; padding: 8px; background: rgba(16, 185, 129, 0.1); border: 1px solid #10b981; border-radius: 6px; font-size: 12px; color: #34d399;"></div>
+    </div>
+
+    <h3 style="font-size: 13px; color: #94a3b8; text-transform: uppercase; margin-bottom: 12px;">🔥 Selecciona tu paquete:</h3>
+    <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px;">
+      <div onclick="seleccionarPaquete(this, '300 Diamantes', 10.00)" style="background: #111827; border: 2px solid #1e293b; padding: 12px; border-radius: 10px; cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
+        <div><h4 style="margin: 0; font-size: 15px; color: #f8fafc;">💎 300 Diamantes</h4></div>
+        <span style="font-size: 16px; font-weight: bold; color: #38bdf8;">S/ 10.00</span>
+      </div>
+      <div onclick="seleccionarPaquete(this, '520 Diamantes', 15.50)" style="background: #111827; border: 2px solid #1e293b; padding: 12px; border-radius: 10px; cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
+        <div><h4 style="margin: 0; font-size: 15px; color: #f8fafc;">💎 520 Diamantes</h4></div>
+        <span style="font-size: 16px; font-weight: bold; color: #38bdf8;">S/ 15.50</span>
+      </div>
+    </div>
+
+    <button onclick="realizarCompra()" style="width: 100%; padding: 14px; background: linear-gradient(90deg, #10b981 0%, #059669 100%); color: #fff; border: none; border-radius: 10px; font-size: 15px; font-weight: bold; cursor: pointer; margin-bottom: 15px;">Comprar con Saldo Disponible</button>
+
+    <div style="border-top: 1px solid #1e293b; padding-top: 15px; margin-top: 15px;">
+      <h3 style="font-size: 13px; color: #94a3b8; text-transform: uppercase; margin-bottom: 10px;">📋 Mis Solicitudes y Compras</h3>
+      <div id="lista-historial" style="display: flex; flex-direction: column; gap: 8px; max-height: 180px; overflow-y: auto;">
+        <p style="font-size: 12px; color: #64748b; text-align: center;">No hay registros recientes.</p>
+      </div>
+    </div>
+
+    <button onclick="cerrarSesion()" style="width: 100%; margin-top: 20px; padding: 10px; background: #1e293b; color: #94a3b8; border: none; border-radius: 8px; font-size: 12px; cursor: pointer;">Cerrar Sesión</button>
+  </div>
+
+
+  <!-- ========================================== -->
+  <!-- MODAL: SUBIR CAPTURA DE PAGO YAPE -->
+  <!-- ========================================== -->
+  <div id="modal-recarga" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 9999; justify-content: center; align-items: center; overflow-y: auto;">
+    <div style="max-width: 400px; width: 90%; background: #0b0f19; color: #fff; padding: 20px; border-radius: 16px; border: 1px solid #1e293b; box-sizing: border-box; position: relative;">
+      
+      <button onclick="cerrarModalRecarga()" style="position: absolute; top: 15px; right: 20px; background: transparent; border: none; color: #94a3b8; font-size: 22px; cursor: pointer;">&times;</button>
+      
+      <h3 style="margin-top: 0; color: #f8fafc; font-size: 17px;">Reportar Pago - Elera Ventas</h3>
+      <div style="background: #111827; padding: 12px; border-radius: 10px; text-align: center; margin-bottom: 15px; border: 1px solid #1e293b;">
+        <p style="margin: 0; font-size: 11px; color: #94a3b8;">YAPE OFICIAL</p>
+        <h3 style="margin: 5px 0; color: #c084fc; font-size: 20px;">969 061 421</h3>
+        <p style="margin: 0; font-size: 12px; color: #38bdf8;">Adan Elera Pena</p>
+      </div>
+
+      <div style="margin-bottom: 12px;">
+        <label style="display: block; font-size: 11px; color: #94a3b8; margin-bottom: 4px;">¿Cuánto yapeaste? (S/):</label>
+        <input type="number" id="yape-monto" placeholder="Ej. 20" style="width: 100%; padding: 10px; background: #111827; border: 1px solid #1e293b; color: #fff; border-radius: 8px; box-sizing: border-box; outline: none; font-size: 13px;">
+      </div>
+
+      <div style="margin-bottom: 15px;">
+        <label style="display: block; font-size: 11px; color: #94a3b8; margin-bottom: 4px;">Sube tu captura de pantalla (Voucher):</label>
+        <input type="file" id="yape-foto" accept="image/*" style="width: 100%; padding: 8px; background: #111827; border: 1px solid #1e293b; color: #fff; border-radius: 8px; box-sizing: border-box; font-size: 12px;">
+      </div>
+
+      <button onclick="enviarReporteYapeConFoto()" style="width: 100%; padding: 12px; background: #7d2ae8; color: #fff; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 14px;">Enviar Captura a Elera Ventas</button>
+    </div>
+  </div>
+
+
+  <!-- ========================================== -->
+  <!-- MODAL PARA VER LA CAPTURA EN GRANDE (ADMIN) -->
+  <!-- ========================================== -->
+  <div id="modal-ver-foto" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 10000; justify-content: center; align-items: center; flex-direction: column;">
+    <button onclick="cerrarModalFoto()" style="position: absolute; top: 20px; right: 25px; background: #ef4444; color: #fff; border: none; padding: 10px 15px; border-radius: 8px; font-weight: bold; cursor: pointer;">Cerrar ❌</button>
+    <img id="imagen-ampliada" src="" style="max-width: 90%; max-height: 80vh; border-radius: 10px; border: 2px solid #38bdf8;">
+  </div>
+
+
+  <!-- ========================================== -->
+  <!-- 3. VISTA ADMINISTRADOR (PANEL DE CONTROL) -->
+  <!-- ========================================== -->
+  <div id="vista-admin" style="display: none; max-width: 650px; margin: 20px auto; background: #0b0f19; padding: 20px; border-radius: 16px; border: 2px solid #3b82f6; box-sizing: border-box;">
+    
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1e293b; padding-bottom: 12px; margin-bottom: 15px;">
+      <div>
+        <span style="font-size: 11px; color: #3b82f6; font-weight: bold; display: block;">ELERA VENTAS - PANEL ADMIN</span>
+        <h2 style="margin: 0; color: #f8fafc; font-size: 18px;">👑 Hola, Adán</h2>
+      </div>
+      <button onclick="cerrarSesion()" style="padding: 8px 12px; background: #ef4444; color: #fff; border: none; border-radius: 6px; font-size: 11px; font-weight: bold; cursor: pointer;">Cerrar Sesión</button>
+    </div>
+
+    <h3 style="font-size: 13px; color: #c084fc; text-transform: uppercase; margin-bottom: 10px;">📸 Capturas de Yape Pendientes</h3>
+    <div id="admin-lista-yapes" style="display: flex; flex-direction: column; gap: 8px; max-height: 250px; overflow-y: auto; margin-bottom: 20px;">
+      <p style="font-size: 12px; color: #64748b; text-align: center;">No hay capturas pendientes.</p>
+    </div>
+
+    <h3 style="font-size: 13px; color: #38bdf8; text-transform: uppercase; margin-bottom: 10px;">📦 Pedidos de Diamantes</h3>
+    <div id="admin-lista-pedidos" style="display: flex; flex-direction: column; gap: 8px; max-height: 250px; overflow-y: auto;">
+      <p style="font-size: 12px; color: #64748b; text-align: center;">No hay pedidos registrados.</p>
+    </div>
+
+  </div>
+
+
+  <!-- ========================================== -->
+  <!-- JAVASCRIPT DE LÓGICA -->
+  <!-- ========================================== -->
+  <script>
+    let esRegistro = false;
+    let paqueteSeleccionado = null;
+    let precioSeleccionado = 0;
+    let idVerificado = false;
+
+    const CORREO_ADMIN = "adan@admin.com"; 
+
+    window.onload = function() {
+      const usuarioLogueado = localStorage.getItem('usuarioActual');
+      if (usuarioLogueado) {
+        verificarTipoUsuario(usuarioLogueado);
+      }
+    };
+
+    function cambiarModoAuth() {
+      esRegistro = !esRegistro;
+      const titulo = document.getElementById('auth-titulo');
+      const btnAccion = document.getElementById('btn-accion-auth');
+      const btnCambiar = document.getElementById('btn-cambiar-modo');
+
+      if (esRegistro) {
+        titulo.innerText = "Crea tu cuenta en Elera Ventas";
+        btnAccion.innerText = "Registrarse";
+        btnCambiar.innerText = "¿Ya tienes cuenta? Inicia sesión";
+      } else {
+        titulo.innerText = "Inicia sesión con tu cuenta";
+        btnAccion.innerText = "Iniciar Sesión";
+        btnCambiar.innerText = "¿No tienes cuenta? Regístrate aquí";
+      }
+    }
+
+    function procesarAuth() {
+      const email = document.getElementById('auth-email').value.trim().toLowerCase();
+      const pass = document.getElementById('auth-password').value.trim();
+
+      if (!email || !pass) {
+        alert("Completa todos los campos.");
+        return;
+      }
+
+      let usuarios = JSON.parse(localStorage.getItem('db_usuarios')) || {};
+
+      if (esRegistro) {
+        if (usuarios[email]) {
+          alert("Este correo ya está registrado.");
+          return;
+        }
+        usuarios[email] = { password: pass, saldo: 0, historial: [] };
+        localStorage.setItem('db_usuarios', JSON.stringify(usuarios));
+        alert("¡Registro exitoso! Ya puedes iniciar sesión.");
+        cambiarModoAuth();
+      } else {
+        if (email === CORREO_ADMIN && !usuarios[email]) {
+          usuarios[email] = { password: pass, saldo: 9999, historial: [] };
+          localStorage.setItem('db_usuarios', JSON.stringify(usuarios));
+        }
+
+        if (!usuarios[email] || usuarios[email].password !== pass) {
+          alert("Correo o contraseña incorrectos. Si eres nuevo, regístrate primero.");
+          return;
+        }
+
+        localStorage.setItem('usuarioActual', email);
+        verificarTipoUsuario(email);
+      }
+    }
+
+    function verificarTipoUsuario(email) {
+      document.getElementById('vista-auth').style.display = 'none';
+
+      if (email === CORREO_ADMIN) {
+        document.getElementById('vista-admin').style.display = 'block';
+        document.getElementById('vista-tienda').style.display = 'none';
+        actualizarPanelAdmin();
+      } else {
+        document.getElementById('vista-tienda').style.display = 'block';
+        document.getElementById('vista-admin').style.display = 'none';
+        document.getElementById('lbl-user-email').innerText = email;
+        actualizarInterfazCliente();
+      }
+    }
+
+    function cerrarSesion() {
+      localStorage.removeItem('usuarioActual');
+      document.getElementById('vista-tienda').style.display = 'none';
+      document.getElementById('vista-admin').style.display = 'none';
+      document.getElementById('vista-auth').style.display = 'block';
+    }
+
+    function abrirModalRecargaSaldo() {
+      document.getElementById('modal-recarga').style.display = 'flex';
+    }
+    function cerrarModalRecarga() {
+      document.getElementById('modal-recarga').style.display = 'none';
+    }
+
+    function enviarReporteYapeConFoto() {
+      const monto = parseFloat(document.getElementById('yape-monto').value);
+      const inputFoto = document.getElementById('yape-foto');
+      const email = localStorage.getItem('usuarioActual');
+
+      if (!monto || isNaN(monto) || monto <= 0) {
+        alert("Ingresa un monto válido.");
+        return;
+      }
+      if (inputFoto.files.length === 0) {
+        alert("Por favor selecciona o toma una foto del voucher.");
+        return;
+      }
+
+      const archivo = inputFoto.files[0];
+      const lector = new FileReader();
+
+      lector.onload = function(e) {
+        const imagenBase64 = e.target.result;
+
+        let yapeAdmin = JSON.parse(localStorage.getItem('db_yapes_admin')) || [];
+        const nuevoReporte = {
+          id: Date.now(),
+          emailCliente: email,
+          monto: monto,
+          imagen: imagenBase64,
+          estado: 'Pendiente'
+        };
+
+        yapeAdmin.push(nuevoReporte);
+        localStorage.setItem('db_yapes_admin', JSON.stringify(yapeAdmin));
+
+        let usuarios = JSON.parse(localStorage.getItem('db_usuarios')) || {};
+        usuarios[email].historial.push({
+          id: nuevoReporte.id,
+          tipo: 'Recarga Saldo',
+          detalle: `Yape S/ ${monto.toFixed(2)} (Con captura)`,
+          estado: 'Pendiente'
         });
+        localStorage.setItem('db_usuarios', JSON.stringify(usuarios));
 
-        function loadUserData() {
-            db.ref('users/' + currentUser.uid).on('value', snapshot => {
-                const data = snapshot.val();
-                if (data) {
-                    currentBalance = data.balance || 0;
-                    document.getElementById('userBalance').innerText = "S/ " + currentBalance.toFixed(2);
-                } else {
-                    db.ref('users/' + currentUser.uid).set({ balance: 0, email: currentUser.email });
-                }
-            });
-        }
+        cerrarModalRecarga();
+        document.getElementById('yape-monto').value = '';
+        inputFoto.value = '';
+        actualizarInterfazCliente();
+        alert("¡Captura enviada con éxito a Elera Ventas!");
+      };
 
-        function register() {
-            const e = document.getElementById('email').value;
-            const p = document.getElementById('password').value;
-            auth.createUserWithEmailAndPassword(e, p).then(() => closeModal('authModal')).catch(err => alert(err.message));
-        }
+      lector.readAsDataURL(archivo);
+    }
 
-        function login() {
-            const e = document.getElementById('email').value;
-            const p = document.getElementById('password').value;
-            auth.signInWithEmailAndPassword(e, p).then(() => closeModal('authModal')).catch(err => alert(err.message));
-        }
+    function verificarID() {
+      const playerId = document.getElementById('player-id').value.trim();
+      const divRes = document.getElementById('resultado-verificacion');
+      if (playerId.length < 5) {
+        alert("Ingresa un User ID válido.");
+        divRes.style.display = 'none';
+        idVerificado = false;
+        return;
+      }
+      idVerificado = true;
+      divRes.style.display = 'block';
+      divRes.innerHTML = `✅ <b>ID Verificado:</b> Jugador #${playerId}`;
+    }
 
-        function logout() { auth.signOut(); }
+    function seleccionarPaquete(elemento, nombre, precio) {
+      document.querySelectorAll('[onclick^="seleccionarPaquete"]').forEach(el => {
+        el.style.borderColor = '#1e293b';
+        el.style.background = '#111827';
+      });
+      elemento.style.borderColor = '#38bdf8';
+      elemento.style.background = '#0f172a';
+      paqueteSeleccionado = nombre;
+      precioSeleccionado = precio;
+    }
 
-        function requestDeposit() {
-            const amount = document.getElementById('payAmount').value;
-            const op = document.getElementById('payOp').value;
-            if(!amount || !op) return alert("Completa los datos");
-            
-            const msg = `Hola, recargué S/ ${amount}. N° Operación: ${op}. Correo: ${currentUser ? currentUser.email : 'No registrado'}`;
-            window.open(`https://wa.me/51943484217?text=${encodeURIComponent(msg)}`, '_blank');
-            closeModal('rechargeModal');
-        }
+    function realizarCompra() {
+      const playerId = document.getElementById('player-id').value.trim();
+      if (!idVerificado || !playerId) {
+        alert("Ingresa y verifica tu ID de Free Fire primero.");
+        return;
+      }
+      if (!paqueteSeleccionado) {
+        alert("Selecciona un paquete de diamantes.");
+        return;
+      }
 
-        function buyItem(item, price) {
-            if (!currentUser) return openModal('authModal');
-            if (currentBalance < price) return alert("Saldo insuficiente. Por favor recarga tu billetera.");
+      const email = localStorage.getItem('usuarioActual');
+      let usuarios = JSON.parse(localStorage.getItem('db_usuarios')) || {};
+      let user = usuarios[email];
 
-            const playerID = prompt("Ingresa tu ID de Jugador de Free Fire:");
-            if (!playerID) return;
+      if (user.saldo < precioSeleccionado) {
+        alert("Saldo insuficiente en tu billetera. Recarga enviando tu captura.");
+        return;
+      }
 
-            const newBal = currentBalance - price;
-            db.ref('users/' + currentUser.uid).update({ balance: newBal }).then(() => {
-                alert(`¡Compra realizada! Se enviarán ${item} al ID: ${playerID}`);
-                const msg = `NUEVA COMPRA:\nPaquete: ${item}\nID Jugador: ${playerID}\nUsuario: ${currentUser.email}`;
-                window.open(`https://wa.me/51943484217?text=${encodeURIComponent(msg)}`, '_blank');
-            });
-        }
+      user.saldo -= precioSeleccionado;
+      
+      const nuevaCompra = {
+        id: Date.now(),
+        emailCliente: email,
+        item: paqueteSeleccionado,
+        precio: precioSeleccionado,
+        playerId: playerId,
+        estado: 'Pendiente'
+      };
 
-        function addBalanceAdmin() {
-            const targetEmail = document.getElementById('adminUserEmail').value.trim();
-            const amount = parseFloat(document.getElementById('adminAmount').value);
-            
-            if(!targetEmail || isNaN(amount)) return alert("Ingresa datos válidos");
+      user.historial.push({
+        id: nuevaCompra.id,
+        tipo: 'Compra Diamantes',
+        detalle: `${paqueteSeleccionado} (ID: ${playerId})`,
+        estado: 'Pendiente'
+      });
+      
+      let pedidosAdmin = JSON.parse(localStorage.getItem('db_pedidos_admin')) || [];
+      pedidosAdmin.push(nuevaCompra);
+      localStorage.setItem('db_pedidos_admin', JSON.stringify(pedidosAdmin));
+      localStorage.setItem('db_usuarios', JSON.stringify(usuarios));
 
-            db.ref('users').once('value', snapshot => {
-                let found = false;
-                snapshot.forEach(child => {
-                    if(child.val().email === targetEmail) {
-                        found = true;
-                        const prev = child.val().balance || 0;
-                        db.ref('users/' + child.key).update({ balance: prev + amount }).then(() => {
-                            alert("¡Saldo acreditado con éxito!");
-                        });
-                    }
-                });
-                if(!found) alert("Usuario no encontrado.");
-            });
-        }
+      paqueteSeleccionado = null;
+      document.getElementById('player-id').value = '';
+      document.getElementById('resultado-verificacion').style.display = 'none';
+      idVerificado = false;
 
-        function openModal(id) { document.getElementById(id).style.display = 'flex'; }
-        function closeModal(id) { document.getElementById(id).style.display = 'none'; }
-    </script>
-</body>
-</html>
+      actualizarInterfazCliente();
+      alert("¡Compra realizada con éxito!");
+    }
+
+    function actualizarInterfazCliente() {
+      const email = localStorage.getItem('usuarioActual');
+      let usuarios = JSON.parse(localStorage.getItem('db_usuarios')) || {};
+      let user = usuarios[email];
+      if (!user) return;
+
+      document.getElementById('lbl-saldo').innerText = `S/ ${user.saldo.toFixed(2)}`;
+
+      const contenedor = document.getElementById('lista-historial');
+      if (user.historial.length === 0) {
+        contenedor.innerHTML = `<p style="font-size: 12px; color: #64748b; text-align: center;">No hay registros recien
