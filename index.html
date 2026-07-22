@@ -1,271 +1,352 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Elera Ventas</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elera Ventas - Diamantes Free Fire</title>
+    <style>
+        * { font-family: Arial, sans-serif; margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #12122b; color: white; padding: 20px; max-width: 800px; margin: 0 auto; padding-top: 70px; }
 
-<style>
-body{
-font-family:Arial;
-margin:0;
-background:#f1f5f9;
-}
+        /* BARRA SUPERIOR */
+        .barra-superior {
+            position: fixed; top: 0; left: 0; width: 100%; background: #1a1a3a;
+            padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; z-index: 999;
+        }
+        .logo { font-size: 22px; font-weight: bold; color: #ffd700; }
+        .icono-usuario {
+            width: 40px; height: 40px; background: #2a2a5a; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; font-size: 18px; cursor: pointer;
+        }
 
-header{
-background:#16a34a;
-color:white;
-padding:15px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-}
+        /* MENÚ DESPLEGABLE */
+        .menu-cuenta {
+            display: none; position: absolute; top: 60px; right: 20px;
+            background: #1e1e42; border-radius: 12px; padding: 15px 0; width: 260px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4); z-index: 1000;
+        }
+        .menu-cuenta.mostrar { display: block; }
+        .perfil { padding: 0 18px 12px; border-bottom: 1px solid #333366; margin-bottom: 8px; }
+        .nombre-usuario { font-size: 18px; font-weight: bold; margin-bottom: 4px; }
+        .saldo { color: #ffd700; font-size: 15px; }
+        .opcion-menu { padding: 10px 18px; display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 15px; }
+        .opcion-menu:hover { background: #2a2a5a; }
+        .opcion-menu.admin { color: #ffd700; font-weight: bold; border-top: 1px solid #333; margin-top: 5px; padding-top: 10px; }
+        .cerrar-sesion { color: #ff6666; margin-top: 8px; border-top: 1px solid #333366; padding-top: 12px; }
 
-.contenedor{
-display:flex;
-gap:20px;
-padding:20px;
-}
+        /* PASOS DEL PROCESO */
+        .pasos-barra { display: flex; justify-content: space-around; margin-bottom: 25px; }
+        .paso-item { text-align: center; opacity: 0.4; color: #aaa; }
+        .paso-item.activo { opacity: 1; color: #ffb74d; font-weight: bold; }
+        .numero-paso {
+            width: 38px; height: 38px; border-radius: 50%; background: #333;
+            display: flex; align-items: center; justify-content: center; margin: 0 auto 5px;
+        }
+        .paso-item.activo .numero-paso { background: #ffb74d; color: black; }
+        .paso-item.completado .numero-paso { background: #28a745; color: white; }
 
-.izquierda{
-width:70%;
-}
+        h1 { text-align: center; color: #ffd700; margin-bottom: 10px; font-size: 24px; }
+        .aviso { text-align: center; background: #1a1a3a; padding: 15px; border-radius: 8px; margin-bottom: 20px; }
 
-.derecha{
-width:30%;
-background:white;
-padding:20px;
-border-radius:15px;
-}
+        /* TIENDA DE PRODUCTOS */
+        .tienda { background: #1a1a3a; padding: 20px; border-radius: 12px; margin-bottom: 20px; }
+        .producto {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 14px 0; border-bottom: 1px solid #333366; font-size: 16px;
+        }
+        .producto:last-child { border-bottom: none; }
+        .btn-comprar {
+            background: #28a745; color: white; border: none; padding: 8px 16px;
+            border-radius: 6px; font-weight: bold; cursor: pointer;
+        }
 
-.producto{
-background:white;
-padding:15px;
-margin:10px;
-border-radius:15px;
-display:flex;
-justify-content:space-between;
-}
+        /* SECCIONES GENERALES */
+        .seccion { display: none; }
+        .seccion.visible { display: block; }
+        .contenedor-seccion { background: #1a1a3a; padding: 20px; border-radius: 12px; }
 
-button{
-background:#16a34a;
-color:white;
-border:0;
-padding:10px;
-border-radius:8px;
-cursor:pointer;
-}
+        /* COMPRA: INGRESAR ID */
+        .info-producto { background: #2a2a5a; padding: 15px; border-radius: 8px; margin-bottom: 15px; }
+        .input-id {
+            width: 100%; padding: 14px; font-size: 18px; border-radius: 8px; border: none;
+            background: white; color: black; margin: 10px 0;
+        }
+        .btn-verificar {
+            background: #007bff; color: white; border: none; padding: 14px 20px;
+            border-radius: 8px; font-weight: bold; cursor: pointer;
+        }
+        .tutorial { color: #ffd700; margin: 10px 0; cursor: pointer; }
+        .resumen { background: #2a2a5a; padding: 15px; border-radius: 8px; margin-top: 15px; }
+        .cantidad { display: flex; gap: 15px; align-items: center; justify-content: center; margin: 15px 0; }
+        .btn-cant { width: 40px; height: 40px; border-radius: 50%; border: none; background: #ffd700; color: black; font-weight: bold; cursor: pointer; }
+        .btn-finalizar {
+            width: 100%; padding: 14px; border-radius: 8px; border: none; background: #ffd700; color: black; font-weight: bold; font-size: 16px; cursor: pointer; margin-top: 10px;
+        }
+        .boton-volver { background: #444; color: white; border: none; padding: 12px; border-radius: 8px; cursor: pointer; margin-bottom: 10px; width: 100%; }
 
-input{
-width:90%;
-padding:10px;
-margin:5px;
-border-radius:8px;
-border:1px solid #ccc;
-}
+        /* PASO 1: MONTO */
+        .input-monto {
+            width: 100%; padding: 18px; font-size: 28px; border-radius: 8px; border: none;
+            background: white; color: black; margin: 15px 0; text-align: center; font-weight: bold;
+        }
+        .rango-monto { color: #ffb74d; text-align: center; margin: 8px 0; font-weight: bold; }
+        .advertencia {
+            background: #fff3e0; color: #b71c1c; padding: 15px; border-radius: 8px; margin: 15px 0; line-height: 1.6;
+        }
+        .advertencia p { margin: 6px 0; }
 
-.caja{
-background:white;
-padding:15px;
-border-radius:15px;
-margin-top:15px;
-}
+        /* PASO 2: QR Y DATOS DE YAPE */
+        .titulo-pago { text-align: center; font-size: 22px; margin-bottom: 15px; }
+        .subtitulo-pago { text-align: center; margin-bottom: 20px; opacity: 0.8; }
+        .metodos-pago { display: flex; gap: 10px; justify-content: center; margin-bottom: 20px; }
+        .metodo { padding: 12px 15px; border-radius: 8px; background: #4a3524; cursor: pointer; flex: 1; text-align: center; }
+        .metodo.activo { background: #9933cc; color: white; }
+        .datos-yape {
+            background: #4a3524; padding: 15px; border-radius: 8px; text-align: center; margin-bottom: 20px;
+        }
+        .numero-yape { font-size: 28px; font-weight: bold; margin: 8px 0; }
+        .nombre-yape { color: #ffb74d; }
+        .contenedor-qr {
+            background: white; padding: 20px; border-radius: 12px; text-align: center; margin: 0 auto; max-width: 300px;
+        }
+        .contenedor-qr img { max-width: 100%; border-radius: 8px; }
+        .texto-qr { color: #9933cc; font-weight: bold; margin-top: 10px; }
+        .minimo { text-align: center; color: #ffb74d; margin-top: 15px; font-weight: bold; }
 
-</style>
+        /* PASO 3: SUBIR COMPROBANTE */
+        .subir-comprobante {
+            border: 2px dashed #ffb74d; border-radius: 8px; padding: 30px; text-align: center; margin: 15px 0; cursor: pointer;
+            background: #fff9f0; color: #333;
+        }
+        .formatos { font-size: 14px; color: #666; margin-top: 8px; }
+
+        /* HISTORIALES Y ADMIN */
+        .pestañas { display: flex; margin-bottom: 20px; border-bottom: 1px solid #333; }
+        .pestaña { padding: 10px 15px; cursor: pointer; }
+        .pestaña.activa { color: #ffd700; border-bottom: 2px solid #ffd700; font-weight: bold; }
+        .tabla { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 14px; }
+        .tabla th, .tabla td { padding: 10px 8px; text-align: left; border-bottom: 1px solid #333; }
+        .estado { padding: 4px 8px; border-radius: 10px; font-size: 13px; font-weight: bold; }
+        .estado.pendiente { background: #fff3cd; color: #856404; }
+        .estado.aprobada, .estado.completado { background: #d4edda; color: #155724; }
+        .estado.rechazada { background: #f8d7da; color: #721c24; }
+        .btn-accion { padding: 5px 10px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 13px; }
+        .btn-aprobar { background: #28a745; color: white; }
+        .btn-completar { background: #ffc107; color: black; }
+        .caja-password { background: #2a2a5a; padding: 20px; border-radius: 8px; text-align: center; margin-bottom: 15px; }
+        .input-pass { padding: 12px; width: 80%; max-width: 300px; border-radius: 6px; border: none; margin: 10px 0; font-size: 16px; }
+        .btn-ingresar { padding: 12px 25px; background: #ffd700; color: black; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; }
+
+        /* BOTONES GENERALES */
+        .botones-accion { display: flex; gap: 15px; margin-top: 20px; }
+        .btn { flex: 1; padding: 14px; border-radius: 8px; border: none; font-weight: bold; font-size: 16px; cursor: pointer; }
+        .btn-volver { background: #444; color: white; }
+        .btn-continuar { background: #ffb74d; color: black; }
+        .boton-wsp { position: fixed; bottom: 20px; right: 20px; background: #25d366; color: white; width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; text-decoration: none; z-index: 998; }
+    </style>
 </head>
-
 <body>
 
-<header>
-<h2>💎 Elera Ventas</h2>
-<span>Recargas Free Fire</span>
-</header>
-
-
-<div class="contenedor">
-
-
-<div class="izquierda">
-
-<h2>🏪 Tienda</h2>
-
-
-<div class="producto">
-<span>💎 110 Diamantes</span>
-<b>S/ 3.00</b>
-<button onclick="comprar('110 Diamantes')">Comprar</button>
-</div>
-
-
-<div class="producto">
-<span>💎 572 Diamantes</span>
-<b>S/ 14.50</b>
-<button onclick="comprar('572 Diamantes')">Comprar</button>
-</div>
-
-
-<div class="producto">
-<span>💎 1166 Diamantes</span>
-<b>S/ 26.00</b>
-<button onclick="comprar('1166 Diamantes')">Comprar</button>
-</div>
-
-
-<div class="producto">
-<span>💎 2000 Diamantes</span>
-<b>S/ 45.00</b>
-<button onclick="comprar('2000 Diamantes')">Comprar</button>
-</div>
-
-
-<div class="producto">
-<span>💎 6160 Diamantes</span>
-<b>S/ 126.00</b>
-<button onclick="comprar('6160 Diamantes')">Comprar</button>
-</div>
-
-
-<div class="producto">
-<span>🎫 Pase Élite</span>
-<b>S/ 6.00</b>
-<button onclick="comprar('Pase Élite')">Comprar</button>
-</div>
-
-
-<div class="caja">
-
-<h3>💳 Métodos de pago</h3>
-
-<p>📲 Yape</p>
-<p>Adan Elera Peña</p>
-<p>969061421</p>
-
-<hr>
-
-<p>💙 Prexpe</p>
-<p>Adan Elera Peña</p>
-<p>938780796</p>
-
-</div>
-
-
-</div>
-
-
-
-<div class="derecha">
-
-<div id="login">
-
-<h3>🔐 Iniciar sesión</h3>
-
-<input id="correo" placeholder="Correo">
-
-<input id="clave" type="password" placeholder="Contraseña">
-
-<button onclick="entrar()">Ingresar</button>
-
-
-<h4>Crear cuenta</h4>
-
-<input id="nuevoCorreo" placeholder="Nuevo correo">
-
-<input id="nuevaClave" type="password" placeholder="Nueva contraseña">
-
-<button onclick="registrar()">Registrarse</button>
-
-
-</div>
-
-
-<div id="usuario" style="display:none">
-
-<h3>👤 Mi cuenta</h3>
-
-<p id="nombre"></p>
-
-<h3>💰 Billetera</h3>
-
-<h2>S/ <span id="saldo">0</span></h2>
-
-
-<h3>📦 Pedidos</h3>
-
-<p id="pedido">No tienes pedidos</p>
-
-
-</div>
-
-
-</div>
-
-</div>
-
-
-
-<script>
-
-
-function registrar(){
-
-localStorage.setItem(
-"correo",
-document.getElementById("nuevoCorreo").value
-);
-
-localStorage.setItem(
-"clave",
-document.getElementById("nuevaClave").value
-);
-
-alert("Cuenta creada");
-
-}
-
-
-
-function entrar(){
-
-let c=document.getElementById("correo").value;
-
-let p=document.getElementById("clave").value;
-
-
-if(
-c==localStorage.getItem("correo") &&
-p==localStorage.getItem("clave")
-){
-
-document.getElementById("login").style.display="none";
-
-document.getElementById("usuario").style.display="block";
-
-document.getElementById("nombre").innerHTML=
-"Bienvenido: "+c;
-
-
-}else{
-
-alert("Datos incorrectos");
-
-}
-
-}
-
-
-
-function comprar(producto){
-
-document.getElementById("pedido").innerHTML=
-"Pedido: "+producto+" (Pendiente)";
-
-alert("Pedido creado");
-
-}
-
-
-</script>
-
-
-</body>
-</html>
+    <!-- BARRA SUPERIOR Y MENÚ -->
+    <div class="barra-superior">
+        <div class="logo">🏪 ELERA VENTAS</div>
+        <div class="icono-usuario" onclick="alternarMenu()">👤</div>
+        <div class="menu-cuenta" id="menuCuenta">
+            <div class="perfil">
+                <div class="nombre-usuario">Adan</div>
+                <div class="saldo">Saldo: S/ <span id="saldoUsuario">0.00</span></div>
+            </div>
+            <div class="opcion-menu" onclick="irPasoRecarga(event)">💳 Añadir fondos</div>
+            <div class="opcion-menu" onclick="irRecargas(event)">📋 Recargas</div>
+            <div class="opcion-menu" onclick="irPedidos(event)">🛒 Pedidos</div>
+            <div class="opcion-menu">⚙️ Detalles de la cuenta</div>
+            <div class="opcion-menu admin" onclick="pedirPasswordAdmin(event)">🔐 Panel de Administrador</div>
+            <div class="opcion-menu cerrar-sesion" onclick="cerrarSesion()">🚪 Cerrar sesión</div>
+        </div>
+    </div>
+
+    <!-- PÁGINA PRINCIPAL: TIENDA -->
+    <div id="paginaTienda" class="seccion visible">
+        <h1>ELERA VENTAS DIAMANTES FREE FIRE</h1>
+        <div class="aviso">
+            ⚠️ No pedimos contraseña, solo tu ID del jugador
+        </div>
+        <div class="tienda">
+            <h2 style="margin-bottom:15px;color:#ffd700;">🛒 Nuestros Productos</h2>
+            <div class="producto"><span>💎 110 Diamantes</span><span>S/ 3.00</span><button class="btn-comprar" onclick="seleccionarProducto('110 Diamantes', 3.00)">Comprar</button></div>
+            <div class="producto"><span>💎 572 Diamantes</span><span>S/ 14.50</span><button class="btn-comprar" onclick="seleccionarProducto('572 Diamantes', 14.50)">Comprar</button></div>
+            <div class="producto"><span>💎 1166 Diamantes</span><span>S/ 26.00</span><button class="btn-comprar" onclick="seleccionarProducto('1166 Diamantes', 26.00)">Comprar</button></div>
+            <div class="producto"><span>💎 2000 Diamantes</span><span>S/ 45.00</span><button class="btn-comprar" onclick="seleccionarProducto('2000 Diamantes', 45.00)">Comprar</button></div>
+            <div class="producto"><span>💎 6160 Diamantes</span><span>S/ 126.00</span><button class="btn-comprar" onclick="seleccionarProducto('6160 Diamantes', 126.00)">Comprar</button></div>
+            <div class="producto"><span>🎫 Pase Élite</span><span>S/ 6.00</span><button class="btn-comprar" onclick="seleccionarProducto('Pase Élite', 6.00)">Comprar</button></div>
+            <div class="producto"><span>🎫 Pase Booyah</span><span>S/ 8.49</span><button class="btn-comprar" onclick="seleccionarProducto('Pase Booyah', 8.49)">Comprar</button></div>
+        </div>
+    </div>
+
+    <!-- SECCIÓN COMPRAR: INGRESAR ID -->
+    <div id="seccionCompra" class="seccion">
+        <div class="contenedor-seccion">
+            <button class="boton-volver" onclick="volverTienda()">⬅️ Volver a la tienda</button>
+            <div class="info-producto">
+                <p>Producto seleccionado: <strong id="nombreProducto"></strong></p>
+                <p>Precio unitario: <strong>S/ <span id="precioProducto"></span></strong></p>
+            </div>
+            <h3 style="margin:15px 0;">2) Ingresa tu User ID</h3>
+            <p style="margin-bottom:10px;">Solo números (6 a 15 dígitos aprox.)</p>
+            <p>Free Fire User ID</p>
+            <div style="display:flex;gap:10px;align-items:center;">
+                <input type="text" class="input-id" id="idJugador" placeholder="Escribe tu ID aquí">
+                <button class="btn-verificar">VERIFICAR</button>
+            </div>
+            <p class="tutorial">📍 Tutorial: ¿Dónde ver mi User ID?</p>
+            <h3 style="margin:15px 0;">3) Comprar</h3>
+            <p style="margin-bottom:10px;">Resumen y confirmación</p>
+            <div class="resumen">
+                <p>Producto: <span id="resumenProducto"></span></p>
+                <p>Tipo: <span id="tipoProducto"></span></p>
+                <p>Precio: S/ <span id="resumenPrecio"></span></p>
+                <p>Total: S/ <span id="resumenTotal"></span></p>
+                <div class="cantidad">
+                    <button class="btn-cant" onclick="cambiarCantidad(-1)">-</button>
+                    <span id="cantidad">1</span>
+                    <button class="btn-cant" onclick="cambiarCantidad(1)">+</button>
+                </div>
+            </div>
+            <button class="btn-finalizar" onclick="confirmarCompra()">✅ Confirmar Pedido</button>
+        </div>
+    </div>
+
+    <!-- PROCESO DE AÑADIR FONDOS -->
+    <div id="procesoRecarga" class="seccion">
+        <div class="contenedor-seccion">
+            <div id="pasoRecarga1" class="seccion visible">
+                <div class="pasos-barra">
+                    <div class="paso-item activo"><div class="numero-paso">1</div>Monto</div>
+                    <div class="paso-item"><div class="numero-paso">2</div>Comprobante</div>
+                    <div class="paso-item"><div class="numero-paso">3</div>Confirmar</div>
+                </div>
+                <h2>¿Cuánto vas a recargar?</h2>
+                <p style="margin:10px 0;">Escribe el monto que deseas recargar (Mínimo S/ 10)</p>
+                <input type="text" class="input-monto" id="montoRecarga" value="S/ 10.00">
+                <p class="rango-monto">MÍNIMO S/ 10 - MÁXIMO S/ 5000</p>
+                <div class="advertencia">
+                    <h3 style="color:#b71c1c;margin-bottom:8px;">⚠️ IMPORTANTE - LEE ANTES DE DEPOSITAR</h3>
+                    <p>❌ Si transfieres un monto menor al que escribiste arriba, no se acreditará ni habrá devolución hasta que lo revises.</p>
+                    <p>❌ El comprobante debe ser legible y mostrar número de operación, monto y fecha.</p>
+                    <p>❌ No se aceptan comprobantes editados o duplicados. Quedarán en revisión.</p>
+                </div>
+                <div class="botones-accion">
+                    <button class="btn btn-volver" onclick="volverTienda()">Volver</button>
+                    <button class="btn btn-continuar" onclick="irPasoRecarga2()">Continuar</button>
+                </div>
+            </div>
+
+            <div id="pasoRecarga2" class="seccion">
+                <div class="pasos-barra">
+                    <div class="paso-item completado"><div class="numero-paso">✓</div>Monto</div>
+                    <div class="paso-item activo"><div class="numero-paso">2</div>Comprobante</div>
+                    <div class="paso-item"><div class="numero-paso">3</div>Confirmar</div>
+                </div>
+                <h2 class="titulo-pago">Yapea este monto</h2>
+                <p class="subtitulo-pago">Escanea el QR o yapea al número</p>
+                <div class="metodos-pago">
+                    <div class="metodo activo">📱 YAPE</div>
+                    <div class="metodo">💳 TRANSF.</div>
+                    <div class="metodo">💎 BINANCE</div>
+                </div>
+                <div class="datos-yape">
+                    <p>NÚMERO YAPE</p>
+                    <p class="numero-yape">969 061 421</p>
+                    <p class="nombre-yape">A nombre de: Adan - Elera Pena</p>
+                </div>
+                <div class="contenedor-qr">
+                    <img src="tu-qr-yape.png" alt="QR de Yape">
+                    <p class="texto-qr">Paga aquí con Yape</p>
+                </div>
+                <p class="minimo">ℹ️ MONTO MÍNIMO: S/ 10.00</p>
+                <div class="botones-accion">
+                    <button class="btn btn-volver" onclick="irPasoRecarga1()">Volver</button>
+                    <button class="btn btn-continuar" onclick="irPasoRecarga3()">Subir Comprobante</button>
+                </div>
+            </div>
+
+            <div id="pasoRecarga3" class="seccion">
+                <div class="pasos-barra">
+                    <div class="paso-item completado"><div class="numero-paso">✓</div>Monto</div>
+                    <div class="paso-item completado"><div class="numero-paso">✓</div>Comprobante</div>
+                    <div class="paso-item activo"><div class="numero-paso">3</div>Confirmar</div>
+                </div>
+                <h2>Evidencia de pago</h2>
+                <p style="margin:10px 0;">Sube el comprobante o ingresa el ID de orden</p>
+                <div class="subir-comprobante">
+                    <p style="font-size:30px;margin-bottom:10px;">⬆️</p>
+                    <p>Arrastra tu imagen aquí o haz clic para seleccionarla</p>
+                    <p class="formatos">JPG · PNG · WEBP · Máx. 10MB</p>
+                </div>
+                <div class="botones-accion">
+                    <button class="btn btn-volver" onclick="irPasoRecarga2()">Volver</button>
+                    <button class="btn btn-continuar" onclick="confirmarPago()">✅ Confirmar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- RECARGAS DE CLIENTE -->
+    <div id="paginaRecargas" class="seccion">
+        <div class="contenedor-seccion">
+            <div class="pestañas">
+                <div class="pestaña activa">Recargas</div>
+                <div class="pestaña">Historial de recargas</div>
+            </div>
+            <table class="tabla">
+                <thead>
+                    <tr>
+                        <th>FECHA</th>
+                        <th>MONTO</th>
+                        <th>ESTADO</th>
+                    </tr>
+                </thead>
+                <tbody id="listaRecargas"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- PEDIDOS DE CLIENTE -->
+    <div id="paginaPedidos" class="seccion">
+        <div class="contenedor-seccion">
+            <div class="pestañas">
+                <div class="pestaña activa">Pedidos</div>
+                <div class="pestaña">Historial de pedidos</div>
+            </div>
+            <table class="tabla">
+                <thead>
+                    <tr>
+                        <th>FECHA</th>
+                        <th>PRODUCTO</th>
+                        <th>TOTAL</th>
+                        <th>ESTADO</th>
+                    </tr>
+                </thead>
+                <tbody id="listaPedidos"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- 🔐 PANEL DE ADMINISTRADOR -->
+    <div id="paginaAdmin" class="seccion">
+        <div class="contenedor-seccion">
+            <button class="boton-volver" onclick="volverTienda()">⬅️ Volver a la tienda</button>
+            <h2 style="text-align:center;color:#ffd700;margin-bottom:20px;">🔐 PANEL DE ADMINISTRADOR</h2>
+            
+            <h3 style="margin:15px 0;color:#ffb74d;">💳 Todas las Recargas</h3>
+            <table class="tabla">
+                <thead>
+                    <tr>
+                        <th>FECHA</th>
+                        <th>MONTO</th>
+                        <th>ESTADO</th>
+                        <th>ACCIÓN</th>
+                    </tr>
+                </thead>
+                <tbody id="listaRecargasAdmin"></tbody>
+            </table>
